@@ -15,7 +15,9 @@ let users= [{
     name:'fatma',
     interest:'eating',
     image:'image',
-    match:'boys',
+    match:[2,4,6,8,5],
+    matched:[2,4,5],
+    //array med ide'erne
 },
     {
     id: 2,
@@ -23,15 +25,40 @@ let users= [{
     interest:'sleeping',
     image:'images',
     match:'girls',
-    }
+    },
 
+    {
+    id: 3,
+    name:'sara',
+    interest:'sleeping',
+    image:'images',
+    match:'girls',
+    },
+    {
+    id: 4,
+    name:'sara',
+    interest:'sleeping',
+    image:'images',
+    match:'girls',
+    },
+    {
+        id: 5,
+        name:'peder',
+        interest:'eating',
+        image:'image',
+        likeusers:[2,4,6,1],
+        match:[1],
+        //array med ide'erne
+    },
 ]
 //Funktion OpretProfil()
 //req.body = det der er i bodyen
 app.post('/user',(req,res) => {
 
     let newUser = {
+        //tilfædligt tal
         id:Math.random(),
+        //sender de forskellige attributter
         name:req.body.name,
         interest:req.body.interest,
         image:req.body.image,
@@ -95,6 +122,8 @@ app.delete('/user/:id',(req,res) =>{
 //Funktion Login()
 //Funktion Forbliv()
 //Funktion LikeDislike()
+// i min profil skal der være alle de id'er som jeg godt kan lide, og sara skal have de ider hun godt kan lide hvis dey indeholde rmin id så bliver vi et match
+
 //Funktion DidLike()
 //Funktion Logout()
 //Funktion Match
@@ -176,13 +205,13 @@ app.delete('/interets/:id',(req,res) =>{
 //match delen
 
 let match =[{
-    id: 5,
-    match:'boys',
+    id: 1,
+    match:[2,4,6,8,5],
 
 },
 {
-    id:6,
-    match: 'girls',
+    id:5,
+    match: [1],
 
 }
 
@@ -247,3 +276,4 @@ app.delete('/match/:id',(req,res) =>{
 
 
 app.listen(port,() => console.log(`Simple Express app listening on port ${port}!`))
+//backend
