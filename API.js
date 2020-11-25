@@ -10,11 +10,11 @@ app.listen(PORT,() =>console.log('Server started on port ${PORT}'))
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//hej
 
 
 //User delen
 
-//Hello Tuma
 let users= [{
     id: 1,
     name:'fatma',
