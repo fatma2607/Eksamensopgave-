@@ -1,7 +1,12 @@
 const express = require('express')
+//hvorfor er der to require express?
 const { application } = require('express')
+//med appen får vi forskelliige ting
 const app = express()
-const port = 3000
+//"Process.env.PORT"= vi vil se på omgivelserne
+const PORT = process.env.PORT ||3000;
+app.listen(PORT,() =>console.log('Server started on port ${PORT}'))
+//"BodyParser" = Til mine users
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -122,6 +127,7 @@ app.get('/user/:id',(req,res) =>{
     let userid = req.params.id
 
     let user = users.find(function (u) { 
+      
         return u.id==userid;
     });
     
