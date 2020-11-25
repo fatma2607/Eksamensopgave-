@@ -10,8 +10,6 @@ app.listen(PORT,() =>console.log('Server started on port ${PORT}'))
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//hejjjj
-
 
 //User delen
 
@@ -40,7 +38,6 @@ let users= [{
         match:[2,1],
         matched:[2,4,5],
         },
-//kom nuuuuuuuuu
         {
             id: 4,
             name:'Joakim',
