@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-//hu
+
 //User delen
 
 //Hello Tuma
@@ -15,15 +15,92 @@ let users= [{
     name:'fatma',
     interest:'eating',
     image:'image',
-    match:'boys',
+    match:[2,4,6,8,5],
+    matched:[2,4,5],
 },
     {
     id: 2,
-    name:'sara',
-    interest:'sleeping',
-    image:'images',
-    match:'girls',
-    }
+    name:'Nada',
+    interest:'hiking',
+    image:'image',
+    match:[10,3],
+    matched:[3],
+    },
+
+    {
+        id: 3,
+        name:'Karl',
+        interest:'sightseeing',
+        image:'image',
+        match:[2,1],
+        matched:[2,4,5],
+        },
+
+        {
+            id: 4,
+            name:'Joakim',
+            interest:'exercise',
+            image:'image',
+            match:[5,7],
+            matched:[5,7],
+            },
+
+
+            {
+                id: 5,
+                name:'Huda',
+                interest:'painting',
+                image:'image',
+                match:[4,6],
+                matched:[4,6],
+                },
+
+                {
+                    id: 6,
+                    name:'Jens',
+                    interest:'driving',
+                    image:'image',
+                    match:[1,5,10],
+                    matched:[5,10],
+                    },
+
+                    {
+                        id: 7,
+                        name:'Gertrud',
+                        interest:'sleeping',
+                        image:'image',
+                        match:[4,8],
+                        matched:[4,8],
+                        },
+
+                        {
+                             id: 8,
+                            name:'Mark',
+                            interest:'sleeping',
+                            image:'image',
+                            match:[7],
+                            matched:[7],
+                            },
+                            {
+                                id: 9,
+                                name:'Jessie',
+                                interest:'sleeping',
+                                image:'image',
+                                match:[6],
+                                matched:[],
+                                },
+
+                            {
+                                id: 10,
+                                name:'Bob',
+                                interest:'sleeping',
+                                image:'image',
+                                match:[6],
+                                matched:[6],
+                                }
+
+
+
 
 ]
 //Funktion OpretProfil()
@@ -120,7 +197,7 @@ app.post('interests',(req,res) => {
     }
     res.send(newInterests);
 })
-
+// i min profil skal der være alle de id'er som jeg godt kan lide, og sara skal have de ider hun godt kan lide hvis dey indeholde rmin id så bliver vi et match
 //interest
 app.get('/interests/:id',(req,res) =>{
     let interestsid  = req.params.id
@@ -176,13 +253,13 @@ app.delete('/interets/:id',(req,res) =>{
 //match delen
 
 let match =[{
-    id: 5,
-    match:'boys',
+    id: 1,
+    match:[2,4,6,8,5],
 
 },
 {
-    id:6,
-    match: 'girls',
+    id:5,
+    match: [1],
 
 }
 
@@ -247,3 +324,4 @@ app.delete('/match/:id',(req,res) =>{
 
 
 app.listen(port,() => console.log(`Simple Express app listening on port ${port}!`))
+//backend
