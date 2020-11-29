@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const fetch = require("node-fetch");
 const fs = require("fs");
 
-//Link til htmlll
+//Link til htmlllll
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
