@@ -1,0 +1,33 @@
+[
+  {
+    "id": 1,
+    "name": "Selena",
+    "age": 25,
+    "hobbies": ["Weight Lifting", "Bowling", "Eating"]
+
+  },
+  {
+    "id": 2,
+    "name": "Joey",
+    "age": 30,
+    "hobbies": ["Weight Lifting", "Bowling", "Eating"]
+  },
+  {
+    "id": 3,
+    "name": "Karen",
+    "age": 24,
+    "hobbies": ["Weight Lifting", "Bowling", "Eating"]
+  },
+  {
+    "id": 4,
+    "name": "Mike",
+    "age": 26,
+    "hobbies": ["Weight Lifting", "Bowling", "Eating"]
+  },
+  {
+    "id": 5,
+    "name": "Sara",
+    "age": 23,
+    "hobbies": ["Weight Lifting", "Bowling", "Eating"]
+  }
+]

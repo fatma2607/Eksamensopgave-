@@ -1,7 +1,6 @@
 {
   "name": "Programmering2",
   "version": "1.0.0",
-  "description": "",
   "main": "API.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,6 +9,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
-  }
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fatma2607/Eksamensopgave-.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fatma2607/Eksamensopgave-/issues"
+  },
+  "homepage": "https://github.com/fatma2607/Eksamensopgave-#readme",
+  "description": ""
 }
