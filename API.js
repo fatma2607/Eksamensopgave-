@@ -11,6 +11,7 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 //Virker som i browseren
 const fetch = require("node-fetch");
+const fs = require("fs");
 
 //Link til html
 
@@ -36,24 +37,34 @@ app.get("/users", (req, res) => {
 //Funktion OpretProfil()
 //req.body = det der er i bodyen
 app.post("/user", (req, res) => {
-    const users = require("./users2.json");
-//     let newUser = {
-//     id: Math.random(),
-//     name: req.body.name,
-//     interest: req.body.interest,
-//     image: req.body.image,
-//     match: req.body.match,
-//   };
-    const newUser = {
-        "id": 1,
-        "name": "Selena",
-        "age": 25,
-        "hobbies": ["Weight Lifting", "Bowling", "Eating"]
-    
-      }
-      const newUsers= users.push(newUser)
-      console.log(newUsers);
-  res.send(newUser);
+    const USERS_ENDPOINT = './users2.json';
+    const users = require(USERS_ENDPOINT);
+ 
+    let newUser = {
+        id: Math.random(),
+        name: req.body.name,
+        interest: req.body.interest,
+        image: req.body.image,
+        match: req.body.match,
+    };
+    // const newUser = {
+    //     "id": 1,
+    //     "name": "Selena",
+    //     "age": 25,
+    //     "hobbies": ["Weight Lifting", "Bowling", "Eating"]
+    // };
+       users.push(newUser)
+//Ænder noget i voreS json fil
+    try {
+        fs.writeFileSync(USERS_ENDPOINT, JSON.stringify(users));
+        console.log("user is created", newUser);
+        res.send(200, 'ok');
+    } catch (error) {
+        console.error(err);
+        res.send(500, err.message);
+    }
+// https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+
 });
 
 //Funktion ShowFullProfile() henter fuldprofil?
