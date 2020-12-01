@@ -13,10 +13,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const fetch = require("node-fetch");
 const fs = require("fs");
 
-//Link til htmlllll
+//Link til htmlllll,,,,,
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "my.html"));
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 app.listen(PORT, () =>
