@@ -16,14 +16,14 @@ const fs = require("fs");
 //Link til htmlllll
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.sendFile(path.join(__dirname, "public", "my.html"));
 });
 
 app.listen(PORT, () =>
   console.log(`Simple Express app listening on port ${PORT}!`)
 );
 
-//Få alle brugere
+//Få alle brugere: Function GetUsers()
 
 app.get("/users", (req, res) => {
   try {
@@ -34,7 +34,7 @@ app.get("/users", (req, res) => {
   }
 });
 
-//Funktion OpretProfil()
+//Funktion OpretUser()
 //req.body = det der er i bodyen
 app.post("/user", (req, res) => {
     const USERS_ENDPOINT = './users2.json';
@@ -46,6 +46,7 @@ app.post("/user", (req, res) => {
         interest: req.body.interest,
         image: req.body.image,
         match: req.body.match,
+        
     };
     // const newUser = {
     //     "id": 1,
