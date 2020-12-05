@@ -1,3 +1,4 @@
+const path = require("path");
 const express = require("express");
 //hvorfor er der to require express?
 const { application } = require("express");
@@ -12,11 +13,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Virker som i browseren
 const fetch = require("node-fetch");
 const fs = require("fs");
+//installere id'er
+const { v4: uuidv4 } = require('uuid');
+
 
 //Link til htmlllll,,,,,
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.sendFile(path.join(__dirname,"index.html"));
 });
 
 app.listen(PORT, () =>
@@ -37,16 +41,17 @@ app.get("/users", (req, res) => {
 //Funktion OpretUser()
 //req.body = det der er i bodyen
 app.post("/user", (req, res) => {
-    const USERS_ENDPOINT = './users2.json';
+    const USERS_ENDPOINT = './users.json';
     const users = require(USERS_ENDPOINT);
  
     let newUser = {
-        id: Math.random(),
+        id:uuidv4(),
         name: req.body.name,
-        interest: req.body.interest,
-        image: req.body.image,
-        match: req.body.match,
-        
+        age: req.body.age,
+        email:req.body.email,
+        gender:req.body.gender, 
+        interests: req.body.interests,
+        city:req.body.city,
     };
     // const newUser = {
     //     "id": 1,
