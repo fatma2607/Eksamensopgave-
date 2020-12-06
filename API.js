@@ -22,6 +22,9 @@ const { v4: uuidv4 } = require('uuid');
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname,"index.html"));
 });
+app.get("/profile", (req, res) => {
+  res.sendFile(path.join(__dirname,"profile.html"));
+});
 
 app.listen(PORT, () =>
   console.log(`Simple Express app listening on port ${PORT}!`)
@@ -43,22 +46,27 @@ app.get("/users", (req, res) => {
 app.post("/user", (req, res) => {
     const USERS_ENDPOINT = './users.json';
     const users = require(USERS_ENDPOINT);
- 
+    
+    // let interests;
+    // if (Array.isArray(req.body.interests)) {
+      //   interests = req.body.interests
+      // } else {
+
+    //   interests = [req.body.interests]
+    // }
+
+    // const interests = Array.isArray(req.body.interests) ? req.body.interests : [req.body.interests]
+
     let newUser = {
         id:uuidv4(),
         name: req.body.name,
         age: req.body.age,
         email:req.body.email,
         gender:req.body.gender, 
-        interests: req.body.interests,
+        interests: Array.isArray(req.body.interests) ? req.body.interests : [req.body.interests],
         city:req.body.city,
     };
-    // const newUser = {
-    //     "id": 1,
-    //     "name": "Selena",
-    //     "age": 25,
-    //     "hobbies": ["Weight Lifting", "Bowling", "Eating"]
-    // };
+  
        users.push(newUser)
 //Ænder noget i voreS json fil
     try {
@@ -127,19 +135,7 @@ app.delete("/user/:id", (req, res) => {
 //Funktion Logout()
 //Funktion Match
 
-//Interest delen
-let interests = [
-  {
-    id: 3,
-    interest: ["eating", "smiling", "jumping", "hicking", "ishockey"],
-  },
-
-  {
-    id: 4,
-    interest: ["sleeping", "greeting", "laughing", "loving", "driving"],
-  },
-];
-
+//interests
 app.post("interests", (req, res) => {
   let newInterests = {
     interests: req.array.interest,

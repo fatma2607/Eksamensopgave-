@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil</title>
+</head>
+<body>
+    <a href="/">Opret profil</a>
+    <form method="post" action="/user">
+        <label>
+            Name:
+            <input type="text" name="name" placeholder="Navn" required>
+        </label>
+        <label>
+            Age:
+            <input type="number" name="age" min="18" max="120" placeholder="Alder" required>
+        </label>
+        E-mail:
+        <input type="email" name="email" placeholder="e-mail" required>
+        
+        <label>
+            Gender:
+        <select name="gender" required>
+            <option>male</option>
+            <option>female</option>
+        </select>
+        </label>
+        <label>
+            Interests:
+        <select name="interests" multiple  min="1" required>
+            <option>Weight Lifting</option>
+            <option>Bowling</option>
+            <option>Eating</option>
+            <option>Hiking</option>
+        </select>
+        </label>
+        <label>
+            City:
+        <input type="text" name="city" placeholder="city" required>
+        </label>
+        <button type="reset">Reset</button>
+        <button type="submit">Send</button>
+    </form>
+</body>
+</html>
