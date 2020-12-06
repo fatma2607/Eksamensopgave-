@@ -25,6 +25,9 @@ app.get("/", (req, res) => {
 app.get("/profile", (req, res) => {
   res.sendFile(path.join(__dirname,"profile.html"));
 });
+app.get("/updateprofile", (req, res) => {
+  res.sendFile(path.join(__dirname,"updateprofile.html"));
+});
 
 app.listen(PORT, () =>
   console.log(`Simple Express app listening on port ${PORT}!`)
@@ -81,6 +84,93 @@ app.post("/user", (req, res) => {
 
 });
 
+
+/* app.post("/updateuser", (req, res) => {
+
+
+
+  res.send("Hello");
+
+
+console.log("Update Function Works");
+
+
+});
+
+ */
+//Funktion OpdaterProfil()
+app.post("/updateusertest", (req, res) => {
+
+
+  //let userid = req.params.id;
+  
+let userid = "ebea2ab5-c45c-453d-973e-fdafaaa1614d" 
+ 
+
+  if (userid == "ebea2ab5-c45c-453d-973e-fdafaaa1614d") {
+    let change = req.body;
+    //Alt fra brugerenn kommer ind i det tomme objekt, også kommer alt det fra change ind i objektet
+    
+    res.send("User Updated Tuma");
+  } else {
+    res.send(404, "Hello Tuma - user not found");
+  }
+});
+
+
+
+//Funktion OpdaterProfil()
+app.post("/updateuser", (req, res) => {
+
+
+
+  //let userid = req.params.id;
+  let userid = "ebea2ab5-c45c-453d-973e-fdafaaa1614d" 
+  
+  const users = require("./users.json");
+  //"find" finder brugeren med id
+  
+  
+  
+  
+  let user = users.find(function (u) {
+  return u.id == userid;
+  });
+  if (user) {
+  
+
+    let founduserindex = users.findIndex(function (u) {
+      return u.id == userid;
+      });
+
+  
+    let change = req.body;
+  //Alt fra brugerenn kommer ind i det tomme objekt, også kommer alt det fra change ind i objektet
+  let changedUser = Object.assign({}, user, change);
+  
+  //Så vi kan få den ændret bruger (changedUser) ind i vores users.json fil
+  
+
+    //users[founduserindex].email = "myemail@gmail.com";
+    users[founduserindex] = changedUser;
+
+  const USERS_ENDPOINT = './users.json';
+  fs.writeFileSync(USERS_ENDPOINT, JSON.stringify(users));
+
+
+  //user.email = "myemail@gmail.com";
+  
+  res.send(changedUser);
+
+
+  } else {
+  res.send(404, "user not found");
+  }
+  });
+
+
+
+
 //Funktion ShowFullProfile() henter fuldprofil?
 app.get("/user/:id", (req, res) => {
     const users = require("./users.json");
@@ -97,22 +187,7 @@ app.get("/user/:id", (req, res) => {
     res.send(404, "user not found");
   }
 });
-//Funktion OpdaterProfil()
-app.put("/user/:id", (req, res) => {
-  let userid = req.params.id;
-  let user = users.find(function (u) {
-    return u.id == userid;
-  });
 
-  if (user) {
-    let change = req.body;
-    //Alt fra brugerenn kommer ind i det tomme objekt, også kommer alt det fra change ind i objektet
-    let changedUser = Object.assign({}, user, change);
-    res.send(changedUser);
-  } else {
-    res.send(404, "user not found");
-  }
-});
 //Funktion SletProfil()
 app.delete("/user/:id", (req, res) => {
   let userid = req.params.id;
