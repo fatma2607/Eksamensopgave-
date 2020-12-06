@@ -1,5 +1,6 @@
 const path = require("path");
 const express = require("express");
+
 //hvorfor er der to require express?
 const { application } = require("express");
 //med appen får vi forskelliige ting
@@ -17,16 +18,28 @@ const fs = require("fs");
 const { v4: uuidv4 } = require('uuid');
 
 
+//Få JSON data
+app.locals.myusers =  require('./users.json');
+
 //Link til htmlllll,,,,,
 
-app.get("/", (req, res) => {
+/* app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname,"index.html"));
+}); */
+
+//Til vores ejs
+app.get("/", (req, res) => {
+  //render læser alt hvad vi har indeni vores fil
+  res.render(path.join(__dirname,"/views/index.ejs"));
 });
+
+app.get("/views/showprofile", (req, res) => {
+  //render læser alt hvad vi har indeni vores fil
+  res.render(path.join(__dirname,"/views/showprofile.ejs"));
+});
+
 app.get("/profile", (req, res) => {
   res.sendFile(path.join(__dirname,"profile.html"));
-});
-app.get("/updateprofile", (req, res) => {
-  res.sendFile(path.join(__dirname,"updateprofile.html"));
 });
 
 app.listen(PORT, () =>
@@ -64,7 +77,10 @@ app.post("/user", (req, res) => {
         id:uuidv4(),
         name: req.body.name,
         age: req.body.age,
+        //username
         email:req.body.email,
+        //password
+        password:req.body.password,
         gender:req.body.gender, 
         interests: Array.isArray(req.body.interests) ? req.body.interests : [req.body.interests],
         city:req.body.city,
@@ -122,47 +138,35 @@ let userid = "ebea2ab5-c45c-453d-973e-fdafaaa1614d"
 //Funktion OpdaterProfil()
 app.post("/updateuser", (req, res) => {
 
-
-
-  //let userid = req.params.id;
-  let userid = "ebea2ab5-c45c-453d-973e-fdafaaa1614d" 
+  let userid = req.body.id;
+  //let userid = "ebea2ab5-c45c-453d-973e-fdafaaa1614d" 
   
   const users = require("./users.json");
+
   //"find" finder brugeren med id
-  
-  
-  
-  
   let user = users.find(function (u) {
   return u.id == userid;
   });
   if (user) {
-  
 
     let founduserindex = users.findIndex(function (u) {
       return u.id == userid;
       });
 
-  
     let change = req.body;
   //Alt fra brugerenn kommer ind i det tomme objekt, også kommer alt det fra change ind i objektet
   let changedUser = Object.assign({}, user, change);
   
   //Så vi kan få den ændret bruger (changedUser) ind i vores users.json fil
   
-
-    //users[founduserindex].email = "myemail@gmail.com";
-    users[founduserindex] = changedUser;
+  users[founduserindex] = changedUser;
 
   const USERS_ENDPOINT = './users.json';
   fs.writeFileSync(USERS_ENDPOINT, JSON.stringify(users));
 
-
-  //user.email = "myemail@gmail.com";
   
   res.send(changedUser);
-
-
+  
   } else {
   res.send(404, "user not found");
   }
@@ -171,10 +175,10 @@ app.post("/updateuser", (req, res) => {
 
 
 
-//Funktion ShowFullProfile() henter fuldprofil?
-app.get("/user/:id", (req, res) => {
+//Funktion ShowFullProfile() henter fuldprofil
+app.get("/user", (req, res) => {
     const users = require("./users.json");
-    let userid = req.params.id;
+    let userid = req.body.id;
 
   let user = users.find(function (u) {
     return u.id == userid;
@@ -187,6 +191,9 @@ app.get("/user/:id", (req, res) => {
     res.send(404, "user not found");
   }
 });
+
+
+
 
 //Funktion SletProfil()
 app.delete("/user/:id", (req, res) => {

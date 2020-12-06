@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My profile</title>
+</head>
+<body>
+    
+
+    <a href="/">My profile-data</a>
+
+</br>
+
+<label>
+    id: <%= myusers[2].id%>
+</label>
+
+    <label>
+        Name: <%= myusers[2].name%>
+    </label>
+    <label>
+        Age: <%= myusers[2].age%>
+       
+    </label>
+    E-mail: <%= myusers[2].email%>
+    
+    <label>
+        Gender: <%= myusers[2].gender%>
+    </label>
+    <label>
+        Interests: <%= myusers[2].interests%>
+    </label>
+    <label>
+        City: <%= myusers[2].city%>
+
+    </label>
+
+
+<H1> Update Information? </H1>
+    <form method="post" action="/updateuser">
+        
+
+
+        <label>
+            id:
+            <input type="text" value= <%= myusers[2].id%> name="id" placeholder="id">
+        </label>
+
+        <label>
+            Name:
+            <input type="text" name="name" placeholder="Navn">
+        </label>
+
+        <label>
+            Age:
+            <input type="number" name="age" min="18" max="120" placeholder="Alder">
+        </label>
+        
+        E-mail:
+        <input type="email" name="email" placeholder="e-mail">
+        <label>
+
+            Gender:
+        <select name="gender">
+            <option>male</option>
+            <option>female</option>
+        </select>
+        </label>
+        <label>
+            Interests:
+        <select name="interests" multiple  min="1">
+            <option>Weight Lifting</option>
+            <option>Bowling</option>
+            <option>Eating</option>
+            <option>Hiking</option>
+        </select>
+        </label>
+        <label>
+            City:
+        <input type="text" name="city" placeholder="city">
+        </label>
+        <button type="submit">Send</button>
+    </form>
+
+</body>
+</html>
