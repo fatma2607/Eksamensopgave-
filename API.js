@@ -1,12 +1,11 @@
-const path = require("path");
+const path = require("path"); 
 const express = require("express");
-
 //hvorfor er der to require express?
 const { application } = require("express");
 //med appen får vi forskelliige ting
 const app = express();
 //"Process.env.PORT"= vi vil se på omgivelserne
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000; 
 //når man kører på serveren får man noget tilbage
 //"BodyParser" = Til mine users
 const bodyParser = require("body-parser");
@@ -57,6 +56,25 @@ app.get("/users", (req, res) => {
   }
 });
 
+//Login
+app.post("/login", (req, res) => {
+
+  //let userid = req.params.id;
+
+let userid = "ebea2ab5-c45c-453d-973e-fdafaaa1614d" 
+ 
+  if (userid == "ebea2ab5-c45c-453d-973e-fdafaaa1614d") {
+    let change = req.body;
+    //Alt fra brugerenn kommer ind i det tomme objekt, også kommer alt det fra change ind i objektet
+    res.send("User Updated");
+  } else {
+    res.send(404, "Hello - user not found");
+  }
+});
+
+
+
+
 //Funktion OpretUser()
 //req.body = det der er i bodyen
 app.post("/user", (req, res) => {
@@ -84,6 +102,7 @@ app.post("/user", (req, res) => {
         gender:req.body.gender, 
         interests: Array.isArray(req.body.interests) ? req.body.interests : [req.body.interests],
         city:req.body.city,
+        image:req.body.image,
     };
   
        users.push(newUser)
@@ -91,7 +110,7 @@ app.post("/user", (req, res) => {
     try {
         fs.writeFileSync(USERS_ENDPOINT, JSON.stringify(users));
         console.log("user is created", newUser);
-        res.send(200, 'ok');
+        res.send(200, 'User is created');
     } catch (error) {
         console.error(err);
         res.send(500, err.message);
@@ -127,9 +146,9 @@ let userid = "ebea2ab5-c45c-453d-973e-fdafaaa1614d"
     let change = req.body;
     //Alt fra brugerenn kommer ind i det tomme objekt, også kommer alt det fra change ind i objektet
     
-    res.send("User Updated Tuma");
+    res.send("User Updated");
   } else {
-    res.send(404, "Hello Tuma - user not found");
+    res.send(404, "Hello - user not found");
   }
 });
 
@@ -194,7 +213,7 @@ app.get("/user", (req, res) => {
 
 
 
-
+//glem dette pt
 //Funktion SletProfil()
 app.delete("/user/:id", (req, res) => {
   let userid = req.params.id;
@@ -217,6 +236,7 @@ app.delete("/user/:id", (req, res) => {
 //Funktion Logout()
 //Funktion Match
 
+//glem dette pt
 //interests
 app.post("interests", (req, res) => {
   let newInterests = {
@@ -270,7 +290,7 @@ app.delete("/interets/:id", (req, res) => {
     res.send(404, "no interets found");
   }
 });
-
+//glem denne del
 //match delen
 
 let match = [

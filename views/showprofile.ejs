@@ -13,38 +13,37 @@
 </br>
 
 <label>
-    id: <%= myusers[2].id%>
+    id: <%= myusers[3].id%>
 </label>
 
     <label>
-        Name: <%= myusers[2].name%>
+        Name: <%= myusers[3].name%>
     </label>
     <label>
-        Age: <%= myusers[2].age%>
+        Age: <%= myusers[3].age%>
        
     </label>
-    E-mail: <%= myusers[2].email%>
+    E-mail: <%= myusers[3].email%>
     
     <label>
-        Gender: <%= myusers[2].gender%>
+        Gender: <%= myusers[3].gender%>
     </label>
     <label>
-        Interests: <%= myusers[2].interests%>
+        Interests: <%= myusers[3].interests%>
     </label>
     <label>
-        City: <%= myusers[2].city%>
+        City: <%= myusers[3].city%>
 
     </label>
-
+    Profileimage
+    <img src= <%=myusers[3].profileimage%> alt="My Profile" width="200" height="200">
 
 <H1> Update Information? </H1>
     <form method="post" action="/updateuser">
         
-
-
         <label>
             id:
-            <input type="text" value= <%= myusers[2].id%> name="id" placeholder="id">
+            <input type="text" value= <%= myusers[3].id%> name="id" placeholder="id">
         </label>
 
         <label>
@@ -56,11 +55,16 @@
             Age:
             <input type="number" name="age" min="18" max="120" placeholder="Alder">
         </label>
-        
+
+        <label>
         E-mail:
         <input type="email" name="email" placeholder="e-mail">
-        <label>
+        </label>
 
+            <label>
+                Password:
+            <input type="password" name="password" placeholder="password">
+            </label>    
             Gender:
         <select name="gender">
             <option>male</option>
@@ -79,7 +83,8 @@
         <label>
             City:
         <input type="text" name="city" placeholder="city">
-        </label>
+        
+
         <button type="submit">Send</button>
     </form>
 
