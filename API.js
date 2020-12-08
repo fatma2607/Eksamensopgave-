@@ -362,42 +362,42 @@ console.log("Users email is " + req.body.email);
   }
   });
 
-//Funktion Didlike()
-//Useren som er liket skal tilføjes til den person som har liket
-app.post("/didlike", (req, res) => {
-  
+//Funktion Didlike(//Useren som er liket skal tilføjes til den person som har liket
 
+
+app.post("/didlike", (req, res) => {
 
   let useremail = "boy2@gmail.com";
   
   const users = require("./users.json");
 
-  //"find" finder brugeren med den samme email
-  let user = users.find(function (u) {
-    //find ud af om email og password passer,og brugeren ikke er deleted u er det vi henter fra vores json fil
-  return u.email == useremail && u.deleted == 0
-  });
-  //hvis brugeren er blevet defineret
-  if (user) {
-    //vil vi gerne finde indexet på den bruger vi har fundet
-    let founduserindex = users.findIndex(function (u) {
-      //find på username, da brugeren er fundet
-      return u.email == useremail ;
-      });
-      
-      //Vi skal indsætte det i et JSON array, Str: string
-      var jsonStr = users[founduserindex];
+//"find" finder brugeren med den samme email
+let user = users.find(function (u) {
+  //find ud af om email og password passer,og brugeren ikke er deleted u er det vi henter fra vores json fil
+return u.email == useremail && u.deleted == 0
+});
+//hvis brugeren er blevet defineret
+if (user) {
+  //vil vi gerne finde indexet på den bruger vi har fundet
+  let founduserindex = users.findIndex(function (u) {
+    //find på username, da brugeren er fundet
+    return u.email == useremail ;
+    });
+    
+    //Vi skal indsætte det i et JSON array, Str: string
+    var jsonStr = users[founduserindex];
 
-      //Opretter et objekt, som er vores JSON string der bliver lavet om.
-      var obj = JSON.parse(jsonStr);
-      
-      obj['like'].push(5);
-      jsonStr = JSON.stringify(obj);
+    //Opretter et objekt, som er vores JSON string der bliver lavet om.
+    var obj = JSON.parse(jsonStr);
+    
+    obj['like'].push(5);
+    jsonStr = JSON.stringify(obj);
+
+  }
 
 
 
-
-      users[founduserindex].like = users[founduserindex].like;
+  users[founduserindex].like = users[founduserindex].like;
 
 
   const USERS_ENDPOINT = './users.json';
@@ -406,7 +406,14 @@ app.post("/didlike", (req, res) => {
   //Når man liker skal man vende tilbage til potentialmath siden
   res.render(path.join(__dirname,"/views/potentialmatch.ejs"));
 
+
+
 });
+
+
+
+
+
 
 app.post("/nextprofile", (req, res) => {
 
