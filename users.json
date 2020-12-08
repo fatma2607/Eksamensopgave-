@@ -9,7 +9,9 @@
         "profileimage": "/images/girl1.jpg",
         "gender": "female",
         "interests": "Weight Lifting",
-        "match":[2],
+        "like": [
+            2
+        ],
         "city": "Chicago",
         "deleted": 0
     },
@@ -22,7 +24,9 @@
         "password": "123",
         "gender": "male",
         "interests": "Bowling",
-        "match":[1],
+        "like": [
+            1
+        ],
         "city": "Seattle",
         "profileimage": "/images/boy1.jpg",
         "deleted": 0
@@ -36,7 +40,7 @@
         "password": "123",
         "gender": "female",
         "interests": "Bowling",
-        "match":[],
+        "like": [],
         "city": "Denver",
         "profileimage": "/images/girl2.jpg",
         "deleted": 0
@@ -53,7 +57,8 @@
             "Eating",
             "Hiking"
         ],
-        "match":[4,5],
+        "like": [4
+        ],
         "city": "Boston",
         "profileimage": "/images/boy2.jpg",
         "deleted": 0
@@ -70,7 +75,9 @@
             "Bowling",
             "Eating"
         ],
-        "match":[3],
+        "like": [
+            3
+        ],
         "city": "San Antonio",
         "profileimage": "/images/girl3.jpg",
         "deleted": 0
@@ -87,7 +94,9 @@
             "Bowling",
             "Eating"
         ],
-        "match":[6],
+        "like": [
+            6
+        ],
         "city": "Austin",
         "profileimage": "/images/boy3.jpg",
         "deleted": 0
@@ -103,7 +112,10 @@
         "interests": [
             "Eating"
         ],
-        "match":[3,5],
+        "like": [
+            3,
+            5
+        ],
         "city": "Houston",
         "profileimage": "/images/girl4.jpg",
         "deleted": 0
@@ -119,7 +131,9 @@
         "interests": [
             "Eating"
         ],
-        "match":[8],
+        "like": [
+            8
+        ],
         "city": "Los Angeles",
         "profileimage": "/images/boy4.jpg",
         "deleted": 0
@@ -136,7 +150,9 @@
             "Eating",
             "Bowling"
         ],
-        "match":[7],
+        "like": [
+            7
+        ],
         "city": "Dallas",
         "profileimage": "/images/girl5.jpg",
         "deleted": 0
@@ -154,7 +170,7 @@
             "Hiking",
             "Bowling"
         ],
-        "match":[],
+        "like": [],
         "city": "Baltimore",
         "profileimage": "/images/boy5.jpg",
         "deleted": 0

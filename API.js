@@ -6,7 +6,7 @@ const { application } = require("express");
 const app = express();
 //"Process.env.PORT"= vi vil se på omgivelserne
 const PORT = process.env.PORT || 5000; 
-//når man kører på serveren får man noget tilbage
+//når man kører på serveren får man nogret tilbage
 //"BodyParser" = Til mine users
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -21,10 +21,12 @@ app.use(express.static(__dirname + '/images'));
 
 //Få JSON data
 app.locals.myusers =  require('./users.json');
+app.locals.nextprofile = 0;
+
 
 //Link til htmlllll,,,,,
 
-/* app.get("/", (req, res) => {
+/* app.get("/", (req, res) => {t
   res.sendFile(path.join(__dirname,"index.html"));
 }); */
 
@@ -58,6 +60,13 @@ app.get("/logout", (req, res) => {
 
   res.render(path.join(__dirname,"/views/index.ejs"));
 });
+
+app.get("/views/potentialmatch", (req, res) => {
+  res.render(path.join(__dirname,"/views/potentialmatch.ejs"));
+});
+
+
+
 
 
 //Få alle brugere: Function GetUsers()
@@ -353,7 +362,59 @@ console.log("Users email is " + req.body.email);
   }
   });
 
+//Funktion Didlike()
+//Useren som er liket skal tilføjes til den person som har liket
+app.post("/didlike", (req, res) => {
+  
 
+
+  let useremail = "boy2@gmail.com";
+  
+  const users = require("./users.json");
+
+  //"find" finder brugeren med den samme email
+  let user = users.find(function (u) {
+    //find ud af om email og password passer,og brugeren ikke er deleted u er det vi henter fra vores json fil
+  return u.email == useremail && u.deleted == 0
+  });
+  //hvis brugeren er blevet defineret
+  if (user) {
+    //vil vi gerne finde indexet på den bruger vi har fundet
+    let founduserindex = users.findIndex(function (u) {
+      //find på username, da brugeren er fundet
+      return u.email == useremail ;
+      });
+      
+      //Vi skal indsætte det i et JSON array, Str: string
+      var jsonStr = users[founduserindex];
+
+      //Opretter et objekt, som er vores JSON string der bliver lavet om.
+      var obj = JSON.parse(jsonStr);
+      
+      obj['like'].push(5);
+      jsonStr = JSON.stringify(obj);
+
+
+
+
+      users[founduserindex].like = users[founduserindex].like;
+
+
+  const USERS_ENDPOINT = './users.json';
+  fs.writeFileSync(USERS_ENDPOINT, JSON.stringify(users,null,4));
+
+  //Når man liker skal man vende tilbage til potentialmath siden
+  res.render(path.join(__dirname,"/views/potentialmatch.ejs"));
+
+});
+
+app.post("/nextprofile", (req, res) => {
+
+  
+  app.locals.nextprofile = app.locals.nextprofile + 1;
+
+  res.render(path.join(__dirname,"/views/potentialmatch.ejs"));
+});
 
 
 //glem dette pt
@@ -372,8 +433,6 @@ console.log("Users email is " + req.body.email);
 }); */
 
 //TODO:
-//Funktion Login()
-//Funktion Forbliv()
 //Funktion LikeDislike()
 //Funktion DidLike()
 //Funktion Logout()

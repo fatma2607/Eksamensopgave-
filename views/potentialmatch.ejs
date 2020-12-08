@@ -1,0 +1,50 @@
+<html>
+<h1>Your potential matches, like to see what the future holds</h1>
+
+
+</form>
+<h1>Like this user?</h1>
+
+    <label>
+        <!--Nextprofile er id'et vi ændrer-->
+        Name: <%= myusers[nextprofile].name%>
+    </label>
+    <label>
+        Age: <%= myusers[nextprofile].age%>
+       
+    <label>
+        Gender: <%= myusers[nextprofile].gender%>
+    </label>
+    <label>
+        Interests: <%= myusers[nextprofile].interests%>
+    </label>
+    <label>
+        City: <%= myusers[nextprofile].city%>
+
+    </label>
+    <img src= <%=myusers[nextprofile].profileimage%> alt="My Profile" width="200" height="200">
+   
+
+    <!--Når man trykker på like skal det kunne gå videre til næste "potential match"-->
+
+
+<form method="post" action="/nextprofile">
+
+
+
+
+    <button type="submit">Next</button>
+
+</form>
+
+<form method="post" action="/didlike">
+
+
+    <button type="submit">like</button>
+
+</form>
+
+
+
+</html>
+
