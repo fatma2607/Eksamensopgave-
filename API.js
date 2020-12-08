@@ -15,6 +15,8 @@ const fetch = require("node-fetch");
 const fs = require("fs");
 //installere id'er
 const { v4: uuidv4 } = require('uuid');
+//Til at bruge images
+app.use(express.static(__dirname + '/images'));
 
 
 //Få JSON data
@@ -26,6 +28,7 @@ app.locals.myusers =  require('./users.json');
   res.sendFile(path.join(__dirname,"index.html"));
 }); */
 
+//Mine controllere
 //Til vores ejs
 app.get("/", (req, res) => {
   //render læser alt hvad vi har indeni vores fil
@@ -39,6 +42,10 @@ app.get("/views/showprofile", (req, res) => {
 
 app.get("/profile", (req, res) => {
   res.sendFile(path.join(__dirname,"profile.html"));
+});
+
+app.get("/views/login", (req, res) => {
+  res.render(path.join(__dirname,"/views/login.ejs"));
 });
 
 app.listen(PORT, () =>
@@ -59,18 +66,110 @@ app.get("/users", (req, res) => {
 //Login
 app.post("/login", (req, res) => {
 
-  //let userid = req.params.id;
+  let useremail = req.body.email;
+  let userpassword = req.body.password;
 
-let userid = "ebea2ab5-c45c-453d-973e-fdafaaa1614d" 
- 
-  if (userid == "ebea2ab5-c45c-453d-973e-fdafaaa1614d") {
-    let change = req.body;
-    //Alt fra brugerenn kommer ind i det tomme objekt, også kommer alt det fra change ind i objektet
-    res.send("User Updated");
+  console.log("This is the email " + req.body.email);
+
+  console.log("This is the password " + req.body.password);
+
+  //til at sammenligne om det passer, vi loader alle brugerene op i users
+  const users = require("./users.json");
+
+  //"find" finder brugeren med den samme email
+  let user = users.find(function (u) {
+    //find ud af om email og password passer
+  return u.email == useremail && u.password == userpassword;
+  });
+  //hvis brugeren er blevet defineret
+  if (user) {
+    //vil vi gerne finde indexet på den bruger vi har fundet
+    let founduserindex = users.findIndex(function (u) {
+      //find på username, da brugeren er fundet
+      return u.email == useremail ;
+      });
+      //hvis brugeren er fundet er brugeren logget ind
+      //sæt brugeren logget ind lige 1, så det kan ændres til 1 i vores users.json
+      
+      users[founduserindex].loggedin = 1;
+
+      //let change = user
+      //Alt fra brugerenn kommer ind i det tomme objekt, også kommer alt det fra change ind i objektet
+      //let changedUser = Object.assign({}, user, change);
+      
+      //Så vi kan få den ændret bruger (changedUser) ind i vores users.json fil
+      
+      //users[founduserindex] = changedUser;  
+    
+
+//console.log(JSON.stringify(users));
+
+  const USERS_ENDPOINT = './users.json';
+  fs.writeFileSync(USERS_ENDPOINT, JSON.stringify(users));
+
+
+  res.render(path.join(__dirname,"/views/showprofile.ejs"));
+
+  //res.send(user);
+  
   } else {
-    res.send(404, "Hello - user not found");
+  res.send(404, "user not found");
   }
-});
+  });
+
+//Logud
+app.post("/login", (req, res) => {
+
+  let useremail = req.body.email;
+  let userpassword = req.body.password;
+
+  console.log("This is the email " + req.body.email);
+
+  console.log("This is the password " + req.body.password);
+
+  //til at sammenligne om det passer, vi loader alle brugerene op i users
+  const users = require("./users.json");
+
+  //"find" finder brugeren med den samme email
+  let user = users.find(function (u) {
+    //find ud af om email og password passer
+  return u.email == useremail && u.password == userpassword;
+  });
+  //hvis brugeren er blevet defineret
+  if (user) {
+    //vil vi gerne finde indexet på den bruger vi har fundet
+    let founduserindex = users.findIndex(function (u) {
+      //find på username, da brugeren er fundet
+      return u.email == useremail ;
+      });
+      //hvis brugeren er fundet er brugeren logget ind
+      //sæt brugeren logget ind lige 1, så det kan ændres til 1 i vores users.json
+      
+      users[founduserindex].loggedin = 1;
+
+      //let change = user
+      //Alt fra brugerenn kommer ind i det tomme objekt, også kommer alt det fra change ind i objektet
+      //let changedUser = Object.assign({}, user, change);
+      
+      //Så vi kan få den ændret bruger (changedUser) ind i vores users.json fil
+      
+      //users[founduserindex] = changedUser;  
+    
+
+//console.log(JSON.stringify(users));
+
+  const USERS_ENDPOINT = './users.json';
+  fs.writeFileSync(USERS_ENDPOINT, JSON.stringify(users));
+
+
+  res.render(path.join(__dirname,"/views/showprofile.ejs"));
+
+  //res.send(user);
+  
+  } else {
+  res.send(404, "user not found");
+  }
+  });
 
 
 
