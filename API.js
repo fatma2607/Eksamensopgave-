@@ -52,6 +52,14 @@ app.listen(PORT, () =>
   console.log(`Simple Express app listening on port ${PORT}!`)
 );
 
+app.get("/logout", (req, res) => {
+  //render læser alt hvad vi har indeni vores fil
+  //her kommer funktionen hvor vi logger brugeren ud og sender brugeren til startsiden
+
+  res.render(path.join(__dirname,"/views/index.ejs"));
+});
+
+
 //Få alle brugere: Function GetUsers()
 
 app.get("/users", (req, res) => {
@@ -69,17 +77,17 @@ app.post("/login", (req, res) => {
   let useremail = req.body.email;
   let userpassword = req.body.password;
 
-  console.log("This is the email " + req.body.email);
+  //console.log("This is the email " + req.body.email);
 
-  console.log("This is the password " + req.body.password);
+  //console.log("This is the password " + req.body.password);
 
   //til at sammenligne om det passer, vi loader alle brugerene op i users
   const users = require("./users.json");
 
   //"find" finder brugeren med den samme email
   let user = users.find(function (u) {
-    //find ud af om email og password passer
-  return u.email == useremail && u.password == userpassword;
+    //find ud af om email og password passer,og brugeren ikke er deleted u er det vi henter fra vores json fil
+  return u.email == useremail && u.password == userpassword && u.deleted == 0
   });
   //hvis brugeren er blevet defineret
   if (user) {
@@ -105,7 +113,7 @@ app.post("/login", (req, res) => {
 //console.log(JSON.stringify(users));
 
   const USERS_ENDPOINT = './users.json';
-  fs.writeFileSync(USERS_ENDPOINT, JSON.stringify(users));
+  fs.writeFileSync(USERS_ENDPOINT, JSON.stringify(users,null,4));
 
 
   res.render(path.join(__dirname,"/views/showprofile.ejs"));
@@ -118,22 +126,20 @@ app.post("/login", (req, res) => {
   });
 
 //Logud
-app.post("/login", (req, res) => {
+app.post("/logout", (req, res) => {
 
+  //kigger på emailen som vi sender i vores request
   let useremail = req.body.email;
-  let userpassword = req.body.password;
+  //Den kunne ikke finde brugeren så vi fejlfinder ved at brueg console.log, til at finde ud af hvorfor
+console.log("Users email is " + req.body.email);
 
-  console.log("This is the email " + req.body.email);
-
-  console.log("This is the password " + req.body.password);
-
-  //til at sammenligne om det passer, vi loader alle brugerene op i users
+  //vi sammenligner emailen med vores brugere
   const users = require("./users.json");
 
   //"find" finder brugeren med den samme email
   let user = users.find(function (u) {
     //find ud af om email og password passer
-  return u.email == useremail && u.password == userpassword;
+  return u.email == useremail;
   });
   //hvis brugeren er blevet defineret
   if (user) {
@@ -142,10 +148,9 @@ app.post("/login", (req, res) => {
       //find på username, da brugeren er fundet
       return u.email == useremail ;
       });
-      //hvis brugeren er fundet er brugeren logget ind
-      //sæt brugeren logget ind lige 1, så det kan ændres til 1 i vores users.json
-      
-      users[founduserindex].loggedin = 1;
+      //Er brugeren logget ind? 0 er falsk, og 1 er true
+      //Sæt brugeren til logget ud som er 0
+      users[founduserindex].loggedin = 0;
 
       //let change = user
       //Alt fra brugerenn kommer ind i det tomme objekt, også kommer alt det fra change ind i objektet
@@ -159,15 +164,15 @@ app.post("/login", (req, res) => {
 //console.log(JSON.stringify(users));
 
   const USERS_ENDPOINT = './users.json';
-  fs.writeFileSync(USERS_ENDPOINT, JSON.stringify(users));
+  fs.writeFileSync(USERS_ENDPOINT, JSON.stringify(users,null,4));
 
-
-  res.render(path.join(__dirname,"/views/showprofile.ejs"));
+//Når brugeren er logget ud vil vi sende brugerne til startsiden
+  res.render(path.join(__dirname,"/views/index.ejs"));
 
   //res.send(user);
   
   } else {
-  res.send(404, "user not found");
+  res.send(404, "could not log user out");
   }
   });
 
@@ -207,7 +212,7 @@ app.post("/user", (req, res) => {
        users.push(newUser)
 //Ænder noget i voreS json fil
     try {
-        fs.writeFileSync(USERS_ENDPOINT, JSON.stringify(users));
+        fs.writeFileSync(USERS_ENDPOINT, JSON.stringify(users,null,4));
         console.log("user is created", newUser);
         res.send(200, 'User is created');
     } catch (error) {
@@ -232,9 +237,8 @@ console.log("Update Function Works");
 });
 
  */
-//Funktion OpdaterProfil()
+//Funktion OpdaterProfil() TODO: Måske bliver denne her funktion ikek brugt, måske slet
 app.post("/updateusertest", (req, res) => {
-
 
   //let userid = req.params.id;
   
@@ -280,7 +284,7 @@ app.post("/updateuser", (req, res) => {
   users[founduserindex] = changedUser;
 
   const USERS_ENDPOINT = './users.json';
-  fs.writeFileSync(USERS_ENDPOINT, JSON.stringify(users));
+  fs.writeFileSync(USERS_ENDPOINT, JSON.stringify(users,null,4));
 
   
   res.send(changedUser);
@@ -289,9 +293,6 @@ app.post("/updateuser", (req, res) => {
   res.send(404, "user not found");
   }
   });
-
-
-
 
 //Funktion ShowFullProfile() henter fuldprofil
 app.get("/user", (req, res) => {
@@ -310,11 +311,54 @@ app.get("/user", (req, res) => {
   }
 });
 
+//Funktion deleteuser
+app.post("/deleteuser", (req, res) => {
+
+  //kigger på emailen som vi sender i vores request
+  let useremail = req.body.email;
+  //Den kunne ikke finde brugeren så vi fejlfinder ved at brueg console.log, til at finde ud af hvorfor
+console.log("Users email is " + req.body.email);
+
+  //vi sammenligner emailen med vores brugere
+  const users = require("./users.json");
+
+  //"find" finder brugeren med den samme email
+  let user = users.find(function (u) {
+    //find ud af om email og password passer
+  return u.email == useremail;
+  });
+  //hvis brugeren er blevet defineret
+  if (user) {
+    //vil vi gerne finde indexet på den bruger vi har fundet
+    let founduserindex = users.findIndex(function (u) {
+      //find på username, da brugeren er fundet
+      return u.email == useremail ;
+      });
+      //Er brugeren logget ind? 0 er falsk, og 1 er true
+      //Sæt brugeren til logget ud som er 0
+      users[founduserindex].deleted = 1;
+
+//console.log(JSON.stringify(users));
+
+  const USERS_ENDPOINT = './users.json';
+  fs.writeFileSync(USERS_ENDPOINT, JSON.stringify(users,null,4));
+
+//Når brugeren er logget ud vil vi sende brugerne til startsiden
+  res.render(path.join(__dirname,"/views/index.ejs"));
+
+  //res.send(user);
+  
+  } else {
+  res.send(404, "could not delete user");
+  }
+  });
+
+
 
 
 //glem dette pt
 //Funktion SletProfil()
-app.delete("/user/:id", (req, res) => {
+/* app.delete("/user/:id", (req, res) => {
   let userid = req.params.id;
   let user = users.find(function (u) {
     return u.id == userid;
@@ -325,7 +369,7 @@ app.delete("/user/:id", (req, res) => {
   } else {
     res.send(404, "user not found");
   }
-});
+}); */
 
 //TODO:
 //Funktion Login()

@@ -87,7 +87,30 @@
         
 
         <button type="submit">Send</button>
-    </form>
 
+        
+    </form>
+            <h1>Logout</h1>
+    <form method="post" action="/logout">
+        <button type="submit">Logout</button>
+
+    </label>
+    E-mail: <%= myusers[3].email%>
+    <label>
+        <!--Sender noget i formen, det gør label ikke-->
+    <input type="email" name="email" value= <%= myusers[3].email%> placeholder="e-mail">
+        </form>
+
+            <!--Vi bruger email som identifikation-->
+        <h1>Delete myProfile</h1>
+    <form method="post" action="/deleteuser">
+        <button type="submit">DeleteProfile</button>
+
+    </label>
+    E-mail: <%= myusers[3].email%>
+    <label>
+        <!--Sender noget i formen, det gør label ikke-->
+    <input type="email" name="email" value= <%= myusers[3].email%> placeholder="e-mail">
+        </form>
 </body>
 </html>
