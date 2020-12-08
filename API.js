@@ -21,7 +21,7 @@ app.use(express.static(__dirname + '/images'));
 
 //Få JSON data
 app.locals.myusers =  require('./users.json');
-app.locals.nextprofile = 0;
+app.locals.dislike = 0;
 
 
 //Link til htmlllll,,,,,
@@ -43,7 +43,7 @@ app.get("/views/showprofile", (req, res) => {
 });
 
 app.get("/profile", (req, res) => {
-  res.sendFile(path.join(__dirname,"profile.html"));
+  res.render(path.join(__dirname,"/views/profile.ejs"));
 });
 
 app.get("/views/login", (req, res) => {
@@ -83,6 +83,7 @@ app.get("/users", (req, res) => {
 //Login
 app.post("/login", (req, res) => {
 
+  
   let useremail = req.body.email;
   let userpassword = req.body.password;
 
@@ -245,24 +246,25 @@ console.log("Update Function Works");
 
 });
 
+
  */
 //Funktion OpdaterProfil() TODO: Måske bliver denne her funktion ikek brugt, måske slet
-app.post("/updateusertest", (req, res) => {
+// app.post("/updateusertest", (req, res) => {
 
-  //let userid = req.params.id;
+//   //let userid = req.params.id;
   
-let userid = "ebea2ab5-c45c-453d-973e-fdafaaa1614d" 
+// let userid = "ebea2ab5-c45c-453d-973e-fdafaaa1614d" 
  
 
-  if (userid == "ebea2ab5-c45c-453d-973e-fdafaaa1614d") {
-    let change = req.body;
-    //Alt fra brugerenn kommer ind i det tomme objekt, også kommer alt det fra change ind i objektet
+//   if (userid == "ebea2ab5-c45c-453d-973e-fdafaaa1614d") {
+//     let change = req.body;
+//     //Alt fra brugerenn kommer ind i det tomme objekt, også kommer alt det fra change ind i objektet
     
-    res.send("User Updated");
-  } else {
-    res.send(404, "Hello - user not found");
-  }
-});
+//     res.send("User Updated");
+//   } else {
+//     res.send(404, "Hello - user not found");
+//   }
+// });
 
 
 
@@ -415,10 +417,10 @@ if (user) {
 
 
 
-app.post("/nextprofile", (req, res) => {
+app.post("/dislike", (req, res) => {
 
   
-  app.locals.nextprofile = app.locals.nextprofile + 1;
+  app.locals.dislike = app.locals.dislike + 1;
 
   res.render(path.join(__dirname,"/views/potentialmatch.ejs"));
 });

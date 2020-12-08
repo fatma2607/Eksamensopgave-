@@ -6,41 +6,41 @@
 <h1>Like this user?</h1>
 
     <label>
-        <!--Nextprofile er id'et vi ændrer-->
-        Name: <%= myusers[nextprofile].name%>
+        <!--dislike er id'et vi ændrer-->
+        Name: <%= myusers[dislike].name%>
     </label>
     <label>
-        Age: <%= myusers[nextprofile].age%>
+        Age: <%= myusers[dislike].age%>
        
     <label>
-        Gender: <%= myusers[nextprofile].gender%>
+        Gender: <%= myusers[dislike].gender%>
     </label>
     <label>
-        Interests: <%= myusers[nextprofile].interests%>
+        Interests: <%= myusers[dislike].interests%>
     </label>
     <label>
-        City: <%= myusers[nextprofile].city%>
+        City: <%= myusers[dislike].city%>
 
     </label>
-    <img src= <%=myusers[nextprofile].profileimage%> alt="My Profile" width="200" height="200">
+    <img src= <%=myusers[dislike].profileimage%> alt="My Profile" width="200" height="200">
    
 
     <!--Når man trykker på like skal det kunne gå videre til næste "potential match"-->
 
 
-<form method="post" action="/nextprofile">
+<form method="post" action="/dislike">
 
 
 
 
-    <button type="submit">Next</button>
+    <button type="submit">Dislike</button>
 
 </form>
 
 <form method="post" action="/didlike">
 
 
-    <button type="submit">like</button>
+    <button type="submit">Like</button>
 
 </form>
 

@@ -6,11 +6,12 @@
         "email": "girl1@gmail.com",
         "loggedin": 0,
         "password": "123",
-        "profileimage": "/images/girl1.jpg",
+        "profileimage": "images/girl1.jpg",
         "gender": "female",
         "interests": "Weight Lifting",
-        "like": [
-            2
+        "like": [ 
+            {"id":2},
+            {"id":5}
         ],
         "city": "Chicago",
         "deleted": 0
@@ -25,7 +26,7 @@
         "gender": "male",
         "interests": "Bowling",
         "like": [
-            1
+            {"id":1}
         ],
         "city": "Seattle",
         "profileimage": "/images/boy1.jpg",
@@ -50,14 +51,15 @@
         "name": "Toby",
         "age": "25",
         "email": "boy2@gmail.com",
-        "loggedin": 1,
+        "loggedin": 0,
         "password": "123",
         "gender": "male",
         "interests": [
             "Eating",
             "Hiking"
         ],
-        "like": [4
+        "like": [
+            {"ide":4}
         ],
         "city": "Boston",
         "profileimage": "/images/boy2.jpg",
@@ -76,7 +78,7 @@
             "Eating"
         ],
         "like": [
-            3
+            {"id":3}
         ],
         "city": "San Antonio",
         "profileimage": "/images/girl3.jpg",
@@ -95,7 +97,7 @@
             "Eating"
         ],
         "like": [
-            6
+            {"id":6}
         ],
         "city": "Austin",
         "profileimage": "/images/boy3.jpg",
@@ -113,8 +115,8 @@
             "Eating"
         ],
         "like": [
-            3,
-            5
+            {"id":3},
+           {"id":5} 
         ],
         "city": "Houston",
         "profileimage": "/images/girl4.jpg",
@@ -132,7 +134,7 @@
             "Eating"
         ],
         "like": [
-            8
+           {"id":8} 
         ],
         "city": "Los Angeles",
         "profileimage": "/images/boy4.jpg",
@@ -151,7 +153,7 @@
             "Bowling"
         ],
         "like": [
-            7
+            {"id":7}
         ],
         "city": "Dallas",
         "profileimage": "/images/girl5.jpg",
@@ -175,4 +177,7 @@
         "profileimage": "/images/boy5.jpg",
         "deleted": 0
     }
+    
+    
+        
 ]
