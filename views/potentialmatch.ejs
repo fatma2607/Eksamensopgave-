@@ -24,18 +24,24 @@
         City: <%= myusers[shownextprofile].city%>
 
     </label>
-    <img src= <%=myusers[shownextprofile].profileimage%> alt="My Profile" width="200" height="200">
+    <img src= <%=myusers[shownextprofile].profileimage%>  style="width:15%;">
    
 
     <!--Når man trykker på like skal det kunne gå videre til næste "potential match"-->
 
 
 <form method="post" action="/dislike">
-
-
-
-
     <button type="submit">Dislike</button>
+
+    <label>
+        id:
+        <input type="text" value= <%= myusers[shownextprofile].id%> name="id" placeholder="id">
+    </label>
+
+    <label>
+        Logged in User E-mail:
+        <input type="email" value=<%= myusers[loggedinuserindex].email%> name="loggedinuseremail" placeholder="loggedinuseremail">
+        </label>
 
 </form>
 
@@ -50,7 +56,7 @@
 
     <label>
         Logged in User E-mail:
-        <input type="email" value=<%= myusers[3].email%> name="loggedinuseremail" placeholder="loggedinuseremail">
+        <input type="email" value=<%= myusers[loggedinuserindex].email%> name="loggedinuseremail" placeholder="loggedinuseremail">
         </label>
     
 </form>

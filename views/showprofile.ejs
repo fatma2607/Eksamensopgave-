@@ -14,31 +14,45 @@
 
 </br>
 
+
+<h1>
+
+    Hello and welcome:
+    <label>
+    You are logged with this email : <%= loggedinuseremail%>
+    </label></h1>
+
+    And your logged in user index is:
+
+    <label>
+        Logged in user ind: <%= loggedinuserindex%>
+    </label>
+
 <label>
-    id: <%= myusers[3].id%>
+    id: <%= myusers[loggedinuserindex].id%>
 </label>
 
     <label>
-        Name: <%= myusers[3].name%>
+        Name: <%= myusers[loggedinuserindex].name%>
     </label>
     <label>
-        Age: <%= myusers[3].age%>
+        Age: <%= myusers[loggedinuserindex].age%>
        
     </label>
-    E-mail: <%= myusers[3].email%>
+    E-mail: <%= myusers[loggedinuserindex].email%>
     
     <label>
-        Gender: <%= myusers[3].gender%>
+        Gender: <%= myusers[loggedinuserindex].gender%>
     </label>
     <label>
-        Interests: <%= myusers[3].interests%>
+        Interests: <%= myusers[loggedinuserindex].interests%>
     </label>
     <label>
-        City: <%= myusers[3].city%>
+        City: <%= myusers[loggedinuserindex].city%>
 
     </label>
     Profileimage
-    <img src= <%=myusers[3].profileimage%> alt="My Profile" width="200" height="200">
+    <img src= <%=myusers[loggedinuserindex].profileimage%>  style="width:15%;">
    
 
 <H1> Update Information? </H1>
@@ -46,7 +60,7 @@
         
         <label>
             id:
-            <input type="text" value= <%= myusers[3].id%> name="id" placeholder="id">
+            <input type="text" value= <%= myusers[loggedinuserindex].id%> name="id" placeholder="id">
         </label>
 
         <label>
@@ -97,10 +111,10 @@
         <button type="submit">Logout</button>
 
     </label>
-    E-mail: <%= myusers[3].email%>
+    E-mail: <%= myusers[loggedinuserindex].email%>
     <label>
         <!--Sender noget i formen, det gør label ikke-->
-    <input type="email" name="email" value= <%= myusers[3].email%> placeholder="e-mail">
+    <input type="email" name="email" value= <%= myusers[loggedinuserindex].email%> placeholder="e-mail">
         </form>
 
             <!--Vi bruger email som identifikation-->
@@ -109,10 +123,14 @@
         <button type="submit">DeleteProfile</button>
 
     </label>
-    E-mail: <%= myusers[3].email%>
+    E-mail: <%= myusers[loggedinuserindex].email%>
     <label>
         <!--Sender noget i formen, det gør label ikke-->
-    <input type="email" name="email" value= <%= myusers[3].email%> placeholder="e-mail">
+    <input type="email" name="email" value= <%= myusers[loggedinuserindex].email%> placeholder="e-mail">
         </form>
+
+        <H1> My matches </H1>
+        
+
 </body>
 </html>

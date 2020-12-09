@@ -18,12 +18,12 @@ const { v4: uuidv4 } = require('uuid');
 //Til at bruge images
 app.use(express.static(__dirname + '/images'));
 
-
-//Få JSON data
+//Variabler til hele vores applikation
 app.locals.myusers =  require('./users.json');
 app.locals.shownextprofile = 0;
 app.locals.loggedin = 0;
-//app.locals.loggedinuseremail = "";
+app.locals.loggedinuseremail = "Startemail@gmail.com";
+app.locals.loggedinuserindex = 0;
 
 
 //Link til htmlllll,,,,,
@@ -68,9 +68,6 @@ app.get("/views/potentialmatch", (req, res) => {
 });
 
 
-
-
-
 //Få alle brugere: Function GetUsers()
 
 app.get("/users", (req, res) => {
@@ -85,9 +82,12 @@ app.get("/users", (req, res) => {
 //Login
 app.post("/login", (req, res) => {
 
-  
   let useremail = req.body.email;
   let userpassword = req.body.password;
+    
+  //Få vores brugere til vores localstorgae
+    //Vi giver vores localstorage en værdi
+  //window.localStorage.setItem('loggedinuserid', "hej det er tuma");
 
   //console.log("This is the email " + req.body.email);
 
@@ -112,7 +112,9 @@ app.post("/login", (req, res) => {
       //sæt brugeren logget ind lige 1, så det kan ændres til 1 i vores users.json
       
       users[founduserindex].loggedin = 1;
-      console.log("her sætter vi useremail ved login" + useremail);
+      //console.log("her sætter vi useremail ved login" + useremail);
+      //sæt også lige loginbrugerindex så vi kan bruger på andre sider
+      app.locals.loggedinuserindex = founduserindex;
 
       //app.locals.loggedinuseremail = useremail;
 
@@ -129,7 +131,8 @@ app.post("/login", (req, res) => {
 
   const USERS_ENDPOINT = './users.json';
   fs.writeFileSync(USERS_ENDPOINT, JSON.stringify(users,null,4));
-
+  
+  app.locals.loggedinuseremail = useremail;
 
   res.render(path.join(__dirname,"/views/showprofile.ejs"));
 
@@ -146,7 +149,7 @@ app.post("/logout", (req, res) => {
   //kigger på emailen som vi sender i vores request
   let useremail = req.body.email;
   //Den kunne ikke finde brugeren så vi fejlfinder ved at brueg console.log, til at finde ud af hvorfor
-console.log("Users email is " + req.body.email);
+//console.log("Users email is " + req.body.email);
 
   //vi sammenligner emailen med vores brugere
   const users = require("./users.json");
@@ -190,9 +193,6 @@ console.log("Users email is " + req.body.email);
   res.send(404, "could not log user out");
   }
   });
-
-
-
 
 //Funktion OpretUser()
 //req.body = det der er i bodyen
@@ -412,7 +412,7 @@ obj['like'].push([{"id":likeuserid}]);
 
     
     
-    jsonStr = JSON.stringify(obj);
+    //jsonStr = JSON.stringify(obj);
 
   }
 
@@ -437,10 +437,61 @@ obj['like'].push([{"id":likeuserid}]);
 //Man disliker og vil vise den nye profil, derfor har vi funktonen dislike
 app.post("/dislike", (req, res) => {
 
-  
-  app.locals.shownextprofile = app.locals.shownextprofile + 1;
 
-  res.render(path.join(__dirname,"/views/potentialmatch.ejs"));
+  let useremail = req.body.loggedinuseremail;
+
+
+  console.log("This is the logged in user email" + req.body.loggedinuseremail);
+  //Her fanger vi id'den på usern som vi liker
+  //console.log("det her logged in user email" + app.locals.loggedinuseremail);
+  
+  let dislikeuserid = req.body.id;
+
+
+console.log("This is the dislike id" + req.body.id);
+  const users = require("./users.json");
+
+//"find" finder brugeren med den samme email
+let user = users.find(function (u) {
+  //find ud af om email og password passer,og brugeren ikke er deleted u er det vi henter fra vores json fil
+return u.email == useremail && u.deleted == 0
+});
+//hvis brugeren er blevet defineret
+if (user) {
+  //vil vi gerne finde indexet på den bruger vi har fundet
+  let founduserindex = users.findIndex(function (u) {
+    //find på username, da brugeren er fundet
+    return u.email == useremail ;
+    });
+    
+  
+  
+//Vi skal indsætte det i et JSON array, Str: string
+var jsonStr = users[founduserindex];
+
+//console.log("This is the jsonStr value " + JSON.stringify(users[founduserindex]));
+
+//Opretter et objekt, som er vores JSON string der bliver lavet om.
+var obj = jsonStr;
+
+
+obj['dislike'].push([{"id":dislikeuserid}]);
+
+
+    app.locals.shownextprofile = app.locals.shownextprofile + 1;
+
+
+    const USERS_ENDPOINT = './users.json';
+    fs.writeFileSync(USERS_ENDPOINT, JSON.stringify(users,null,4));
+  
+    //Personen er blevet liket, vis næste profil
+    app.locals.shownextprofile = app.locals.shownextprofile + 1;
+  
+    //Når man liker skal man vende tilbage til potentialmath siden
+    res.render(path.join(__dirname,"/views/potentialmatch.ejs"));
+
+  }
+
 });
 
 
