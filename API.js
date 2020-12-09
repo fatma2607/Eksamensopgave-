@@ -21,8 +21,9 @@ app.use(express.static(__dirname + '/images'));
 
 //Få JSON data
 app.locals.myusers =  require('./users.json');
-app.locals.dislike = 0;
+app.locals.shownextprofile = 0;
 app.locals.loggedin = 0;
+//app.locals.loggedinuseremail = "";
 
 
 //Link til htmlllll,,,,,
@@ -111,7 +112,9 @@ app.post("/login", (req, res) => {
       //sæt brugeren logget ind lige 1, så det kan ændres til 1 i vores users.json
       
       users[founduserindex].loggedin = 1;
+      console.log("her sætter vi useremail ved login" + useremail);
 
+      //app.locals.loggedinuseremail = useremail;
 
       //let change = user
       //Alt fra brugerenn kommer ind i det tomme objekt, også kommer alt det fra change ind i objektet
@@ -371,8 +374,12 @@ console.log("Users email is " + req.body.email);
 
 app.post("/didlike", (req, res) => {
 
-  let useremail = "boy2@gmail.com";
+
+  let useremail = req.body.loggedinuseremail;
+  //Her fanger vi id'den på usern som vi liker
+  //console.log("det her logged in user email" + app.locals.loggedinuseremail);
   
+  let likeuserid = req.body.id;
   const users = require("./users.json");
 
 //"find" finder brugeren med den samme email
@@ -400,7 +407,7 @@ var jsonStr = users[founduserindex];
 var obj = jsonStr;
 
 
-obj['like'].push([{"id": 8}]);
+obj['like'].push([{"id":likeuserid}]);
 
 
     
@@ -417,6 +424,9 @@ obj['like'].push([{"id": 8}]);
   const USERS_ENDPOINT = './users.json';
   fs.writeFileSync(USERS_ENDPOINT, JSON.stringify(users,null,4));
 
+  //Personen er blevet liket, vis næste profil
+  app.locals.shownextprofile = app.locals.shownextprofile + 1;
+
   //Når man liker skal man vende tilbage til potentialmath siden
   res.render(path.join(__dirname,"/views/potentialmatch.ejs"));
 
@@ -424,11 +434,11 @@ obj['like'].push([{"id": 8}]);
 
 });
 
-
+//Man disliker og vil vise den nye profil, derfor har vi funktonen dislike
 app.post("/dislike", (req, res) => {
 
   
-  app.locals.dislike = app.locals.dislike + 1;
+  app.locals.shownextprofile = app.locals.shownextprofile + 1;
 
   res.render(path.join(__dirname,"/views/potentialmatch.ejs"));
 });
@@ -450,7 +460,7 @@ app.post("/dislike", (req, res) => {
 }); */
 
 //TODO:
-//Funktion LikeDislike()
+//Funktion Likeshownextprofile()
 //Funktion DidLike()
 //Funktion Logout()
 //Funktion Match

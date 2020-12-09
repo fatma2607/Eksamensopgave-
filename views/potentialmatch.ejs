@@ -5,24 +5,26 @@
 </form>
 <h1>Like this user?</h1>
 
+
+
     <label>
         <!--dislike er id'et vi ændrer-->
-        Name: <%= myusers[dislike].name%>
+        Name: <%= myusers[shownextprofile].name%>
     </label>
     <label>
-        Age: <%= myusers[dislike].age%>
+        Age: <%= myusers[shownextprofile].age%>
        
     <label>
-        Gender: <%= myusers[dislike].gender%>
+        Gender: <%= myusers[shownextprofile].gender%>
     </label>
     <label>
-        Interests: <%= myusers[dislike].interests%>
+        Interests: <%= myusers[shownextprofile].interests%>
     </label>
     <label>
-        City: <%= myusers[dislike].city%>
+        City: <%= myusers[shownextprofile].city%>
 
     </label>
-    <img src= <%=myusers[dislike].profileimage%> alt="My Profile" width="200" height="200">
+    <img src= <%=myusers[shownextprofile].profileimage%> alt="My Profile" width="200" height="200">
    
 
     <!--Når man trykker på like skal det kunne gå videre til næste "potential match"-->
@@ -38,10 +40,19 @@
 </form>
 
 <form method="post" action="/didlike">
-
-
     <button type="submit">Like</button>
 
+    <label>
+        id:
+        <input type="text" value= <%= myusers[shownextprofile].id%> name="id" placeholder="id">
+    </label>
+    
+
+    <label>
+        Logged in User E-mail:
+        <input type="email" value=<%= myusers[3].email%> name="loggedinuseremail" placeholder="loggedinuseremail">
+        </label>
+    
 </form>
 
 
