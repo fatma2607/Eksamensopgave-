@@ -4,14 +4,23 @@
         "name": "Jeniffer",
         "age": "24",
         "email": "girl1@gmail.com",
-        "loggedin": 0,
+        "loggedin": 1,
         "password": "123",
         "profileimage": "images/girl1.jpg",
         "gender": "female",
         "interests": "Weight Lifting",
-        "like": [ 
-            {"id":2},
-            {"id":5}
+        "like": [
+            {
+                "id": 2
+            },
+            {
+                "id": 5
+            }
+        ],
+        "dislike": [
+            {
+                "id": 7
+            }
         ],
         "city": "Chicago",
         "deleted": 0
@@ -21,12 +30,19 @@
         "name": "John",
         "age": "20",
         "email": "boy1@gmail.com",
-        "loggedin": 0,
+        "loggedin": 1,
         "password": "123",
         "gender": "male",
         "interests": "Bowling",
         "like": [
-            {"id":1}
+            {
+                "id": 1
+            }
+        ],
+        "dislike": [
+            {
+                "id": 3
+            }
         ],
         "city": "Seattle",
         "profileimage": "/images/boy1.jpg",
@@ -42,6 +58,11 @@
         "gender": "female",
         "interests": "Bowling",
         "like": [],
+        "dislike": [
+            {
+                "id": 1
+            }
+        ],
         "city": "Denver",
         "profileimage": "/images/girl2.jpg",
         "deleted": 0
@@ -51,7 +72,7 @@
         "name": "Toby",
         "age": "25",
         "email": "boy2@gmail.com",
-        "loggedin": 0,
+        "loggedin": 1,
         "password": "123",
         "gender": "male",
         "interests": [
@@ -59,7 +80,24 @@
             "Hiking"
         ],
         "like": [
-            {"ide":4}
+            {
+                "id": 5
+            },
+            [
+                {
+                    "id": 8
+                }
+            ],
+            [
+                {
+                    "id": 8
+                }
+            ]
+        ],
+        "dislike": [
+            {
+                "id": 9
+            }
         ],
         "city": "Boston",
         "profileimage": "/images/boy2.jpg",
@@ -70,7 +108,7 @@
         "name": "Alexandra",
         "age": "21",
         "email": "girl3@gmail.com",
-        "loggedin": 0,
+        "loggedin": 1,
         "password": "123",
         "gender": "female",
         "interests": [
@@ -78,7 +116,14 @@
             "Eating"
         ],
         "like": [
-            {"id":3}
+            {
+                "id": 3
+            }
+        ],
+        "dislike": [
+            {
+                "id": 6
+            }
         ],
         "city": "San Antonio",
         "profileimage": "/images/girl3.jpg",
@@ -97,7 +142,14 @@
             "Eating"
         ],
         "like": [
-            {"id":6}
+            {
+                "id": 6
+            }
+        ],
+        "dislike": [
+            {
+                "id": 3
+            }
         ],
         "city": "Austin",
         "profileimage": "/images/boy3.jpg",
@@ -115,8 +167,17 @@
             "Eating"
         ],
         "like": [
-            {"id":3},
-           {"id":5} 
+            {
+                "id": 3
+            },
+            {
+                "id": 5
+            }
+        ],
+        "dislike": [
+            {
+                "id": 4
+            }
         ],
         "city": "Houston",
         "profileimage": "/images/girl4.jpg",
@@ -134,7 +195,14 @@
             "Eating"
         ],
         "like": [
-           {"id":8} 
+            {
+                "id": 8
+            }
+        ],
+        "dislike": [
+            {
+                "id": 10
+            }
         ],
         "city": "Los Angeles",
         "profileimage": "/images/boy4.jpg",
@@ -153,7 +221,14 @@
             "Bowling"
         ],
         "like": [
-            {"id":7}
+            {
+                "id": 7
+            }
+        ],
+        "dislike": [
+            {
+                "id": 8
+            }
         ],
         "city": "Dallas",
         "profileimage": "/images/girl5.jpg",
@@ -173,11 +248,13 @@
             "Bowling"
         ],
         "like": [],
+        "dislike": [
+            {
+                "id": 9
+            }
+        ],
         "city": "Baltimore",
         "profileimage": "/images/boy5.jpg",
         "deleted": 0
     }
-    
-    
-        
 ]

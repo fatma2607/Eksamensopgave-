@@ -22,6 +22,7 @@ app.use(express.static(__dirname + '/images'));
 //Få JSON data
 app.locals.myusers =  require('./users.json');
 app.locals.dislike = 0;
+app.locals.loggedin = 0;
 
 
 //Link til htmlllll,,,,,
@@ -110,6 +111,7 @@ app.post("/login", (req, res) => {
       //sæt brugeren logget ind lige 1, så det kan ændres til 1 i vores users.json
       
       users[founduserindex].loggedin = 1;
+
 
       //let change = user
       //Alt fra brugerenn kommer ind i det tomme objekt, også kommer alt det fra change ind i objektet
@@ -386,20 +388,30 @@ if (user) {
     return u.email == useremail ;
     });
     
-    //Vi skal indsætte det i et JSON array, Str: string
-    var jsonStr = users[founduserindex];
 
-    //Opretter et objekt, som er vores JSON string der bliver lavet om.
-    var obj = JSON.parse(jsonStr);
+
+
+//Our solution
+//Vi skal indsætte det i et JSON array, Str: string
+var jsonStr = users[founduserindex];
+
+
+//Opretter et objekt, som er vores JSON string der bliver lavet om.
+var obj = jsonStr;
+
+
+obj['like'].push([{"id": 8}]);
+
+
     
-    obj['like'].push(5);
+    
     jsonStr = JSON.stringify(obj);
 
   }
 
 
 
-  users[founduserindex].like = users[founduserindex].like;
+  //users[founduserindex].like = users[founduserindex].like;
 
 
   const USERS_ENDPOINT = './users.json';
@@ -411,10 +423,6 @@ if (user) {
 
 
 });
-
-
-
-
 
 
 app.post("/dislike", (req, res) => {
