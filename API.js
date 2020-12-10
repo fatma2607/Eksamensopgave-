@@ -96,11 +96,23 @@ app.get("/logout", (req, res) => {
 
 app.get("/views/potentialmatch", (req, res) => {
 
-  //Tag my users og giv mig kun dem som opfylder følgende kriterie
-  app.locals.mypotentialmatches = app.locals.myusers.filter(function(item){
-  return item.gender == "male";
-  
+
+console.log("app.locals.loggedinuserid is " + app.locals.loggedinuserid);
+
+ // let likeduserfullprofile = useridtoprofile(app.locals.loggedinuserid);
+
+
+//console.log("Full user profile is " + JSON.stringify(likeduserfullprofile));
+
+ // console.log("Show  logged in user id " + app.locals.loggedinuserid)
+
+
+//Tag my users og giv mig kun dem som opfylder følgende kriterie
+app.locals.mypotentialmatches = app.locals.myusers.filter(function(item){
+  return item.gender == "male";  
 });
+
+
 
 
   res.render(path.join(__dirname,"/views/potentialmatch.ejs"));
@@ -133,8 +145,14 @@ app.post("/login", (req, res) => {
   let useremail = req.body.email;
   let userpassword = req.body.password;
     
+  let loggedinuserfullprofile = useremailtoprofile(useremail);
+  app.locals.loggedinuserid = loggedinuserfullprofile.id;
+//console.log("Logged in user full profile is " + JSON.stringify(loggedinuserfullprofile));
 
+//console.log("...and app.locals.loggedinuserid is " + app.locals.loggedinuserid);
 
+  
+  
   //Få vores brugere til vores localstorgae
     //Vi giver vores localstorage en værdi
   //window.localStorage.setItem('loggedinuserid', "hej det er tuma");
@@ -546,8 +564,8 @@ obj['match'].push({"id":loggedinuserid, "name":loggedinuserfullprofile.name, "pr
   app.locals.shownextprofile = app.locals.shownextprofile + 1;
 
   //notification
-
-  app.locals.youhaveamatch = "You have a new match with " + likeuserid;
+  let likeduserfullprofile = useridtoprofile(likeuserid);
+  app.locals.youhaveamatch = "You have a new match with " + likeduserfullprofile.name;
 
   const USERS_ENDPOINT = './users.json';
   fs.writeFileSync(USERS_ENDPOINT, JSON.stringify(users,null,4));
