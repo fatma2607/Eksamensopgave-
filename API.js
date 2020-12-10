@@ -27,6 +27,7 @@ app.locals.loggedinuserindex = 0;
 app.locals.matches = app.locals.myusers[0].match;
 app.locals.loggedinuserid = 0;
 app.locals.mypotentialmatches = require('./users.json');
+app.locals.youhaveamatch = "No new matches";
 
 //Link til htmlllll,,,,,
 
@@ -497,6 +498,9 @@ obj['match'].push({"id":loggedinuserid});
   //Personen er blevet liket, vis næste profil
   app.locals.shownextprofile = app.locals.shownextprofile + 1;
 
+  //notification
+
+  app.locals.youhaveamatch = "You have a new match with " + likeuserid;
 
   const USERS_ENDPOINT = './users.json';
   fs.writeFileSync(USERS_ENDPOINT, JSON.stringify(users,null,4));
@@ -514,8 +518,8 @@ app.post("/removematches", (req, res) => {
   let useremail = req.body.loggedinuseremail;
 
   //let unmatcheduserid = req.body.id;
-
-  let unmatcheduserid = "18136201-ab68-49fb-9b94-ff1b93357781";
+  //console.log("This is unmatcheduserid sendt fra dropdownlisten " + req.body.unmatcheduserid);
+  let unmatcheduserid = req.body.unmatcheduserid;
   const users = require("./users.json");
 
 
@@ -525,8 +529,7 @@ let user = users.find(function (u) {
 return u.email == useremail && u.deleted == 0
 });
 
-console.log("User is  " + user);
-console.log("user email is equal to " + useremail);
+//console.log("user email is equal to " + useremail);
 
 if (user) {
   //vil vi gerne finde indexet på den bruger vi har fundet
@@ -563,7 +566,7 @@ let unmatchedindex = app.locals.myusers[0].match.findIndex(function (u) {
   //users = removedjsonStr;
 
 
-console.log("unmatcheduserindex er " + unmatchedindex);
+//console.log("unmatcheduserindex er " + unmatchedindex);
 
     const USERS_ENDPOINT = './users.json';
     fs.writeFileSync(USERS_ENDPOINT, JSON.stringify(users,null,4));

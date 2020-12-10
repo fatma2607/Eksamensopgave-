@@ -132,24 +132,39 @@
         
 </form>
 
+<h1>Notifications</h1>
+
+<h2><label style = "color: red;"><%=youhaveamatch%></label></h2>
+
 <form method="post" action="/removematches">
         <h1>My matches</h1>
 
         <label>
            
             </label>
-        
+            <select class="example" name="unmatcheduserid">
             <ul>
-                
+                <!-- Vi vil have en knap til hver user som vi vil unmatche, knappen sender os til vores API funktion-->
                 <% matches.forEach(function(item) { %>
-                    
-                    
+        
+                   
+                        <option name="unmatcheduseridselect" value= <%= item.id%> <%= item.id%></option>
+                        
+                  
                     <li><%= item.id%></li>
         
                 <% });%>
         
 
             </ul> 
+
+        </select>
+
+
+
+
+
+
         </label>
             E-mail: <%= myusers[loggedinuserindex].email%>
             <label>
