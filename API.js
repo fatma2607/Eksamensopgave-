@@ -26,9 +26,7 @@ app.locals.loggedinuseremail = "Startemail@gmail.com";
 app.locals.loggedinuserindex = 0;
 app.locals.matches = app.locals.myusers[0].match;
 app.locals.loggedinuserid = 0;
-
-
-
+app.locals.mypotentialmatches = require('./users.json');
 
 //Link til htmlllll,,,,,
 
@@ -68,6 +66,15 @@ app.get("/logout", (req, res) => {
 });
 
 app.get("/views/potentialmatch", (req, res) => {
+
+  //Tag my users og giv mig kun dem som opfylder følgende kriterie
+  app.locals.mypotentialmatches = app.locals.myusers.filter(function(item){
+  return item.gender == "male";
+  
+});
+
+
+
   res.render(path.join(__dirname,"/views/potentialmatch.ejs"));
 });
 
@@ -211,16 +218,7 @@ app.post("/user", (req, res) => {
     const USERS_ENDPOINT = './users.json';
     const users = require(USERS_ENDPOINT);
     
-    // let interests;
-    // if (Array.isArray(req.body.interests)) {
-      //   interests = req.body.interests
-      // } else {
-
-    //   interests = [req.body.interests]
-    // }
-
-    // const interests = Array.isArray(req.body.interests) ? req.body.interests : [req.body.interests]
-
+    
     let newUser = {
         id:uuidv4(),
         name: req.body.name,
@@ -509,6 +507,77 @@ obj['match'].push({"id":loggedinuserid});
 
 
 });
+//Funktion removematches
+app.post("/removematches", (req, res) => {
+
+
+  let useremail = req.body.loggedinuseremail;
+
+  //let unmatcheduserid = req.body.id;
+
+  let unmatcheduserid = "18136201-ab68-49fb-9b94-ff1b93357781";
+  const users = require("./users.json");
+
+
+  //"find" finder brugeren med den samme email
+let user = users.find(function (u) {
+  //find ud af om email og password passer,og brugeren ikke er deleted u er det vi henter fra vores json fil
+return u.email == useremail && u.deleted == 0
+});
+
+console.log("User is  " + user);
+console.log("user email is equal to " + useremail);
+
+if (user) {
+  //vil vi gerne finde indexet på den bruger vi har fundet
+  let founduserindex = users.findIndex(function (u) {
+    //find på username, da brugeren er fundet
+    return u.email == useremail ;
+    });
+    
+  
+//Vi sætter JSON string lige vores fundet index
+var jsonStr = users[0];
+
+//console.log("This is the jsonStr value " + JSON.stringify(users[founduserindex]));
+
+//Opretter et objekt, som er vores JSON string der bliver lavet om.
+var obj = jsonStr;
+
+
+
+//Gå ind på den logget inds profils matches(hnnah), går ind på hannahs index,finder den unmatchets id og returner indexet på den
+let unmatchedindex = app.locals.myusers[0].match.findIndex(function (u) {
+  //find på username, da brugeren er fundet
+  return u.id == unmatcheduserid ;
+  });
+
+  //når man så har den unmatcheds index kan man fjerne det, vi bruger index fordi splice skal bruge et index
+
+  //1 står for hvor mange af dem vi skal slette
+  //jsonStr.splice(unmatchedindex, 1);
+
+  obj['match'].splice(unmatchedindex, 1);
+
+
+  //users = removedjsonStr;
+
+
+console.log("unmatcheduserindex er " + unmatchedindex);
+
+    const USERS_ENDPOINT = './users.json';
+    fs.writeFileSync(USERS_ENDPOINT, JSON.stringify(users,null,4));
+
+
+  }
+
+
+  //render læser alt hvad vi har indeni vores fil
+  res.render(path.join(__dirname,"/views/showprofile.ejs"));
+});
+
+
+
 
 //Man disliker og vil vise den nye profil, derfor har vi funktonen dislike
 app.post("/dislike", (req, res) => {
@@ -699,7 +768,7 @@ app.put("/match/:id", (req, res) => {
     res.send(404, "match not found");
   }
 }); */
-//Funktion RemoveMatch()
+/* //Funktion RemoveMatch()
 app.delete("/match/:id", (req, res) => {
   let matchid = req.params.id;
   let match = users.find(function (m) {
@@ -711,6 +780,6 @@ app.delete("/match/:id", (req, res) => {
   } else {
     res.send(404, "No match for you");
   }
-});
+}); */
 
 //backend

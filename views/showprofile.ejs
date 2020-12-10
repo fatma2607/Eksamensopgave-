@@ -129,10 +129,11 @@
     <label>
         <!--Sender noget i formen, det gør label ikke-->
     <input type="email" name="email" value= <%= myusers[loggedinuserindex].email%> placeholder="e-mail">
-        </form>
+        
+</form>
 
+<form method="post" action="/removematches">
         <h1>My matches</h1>
-
 
         <label>
            
@@ -147,8 +148,16 @@
         
                 <% });%>
         
+
             </ul> 
-        
+        </label>
+            E-mail: <%= myusers[loggedinuserindex].email%>
+            <label>
+            <input type="email" name="loggedinuseremail" value= <%= myusers[loggedinuserindex].email%> placeholder="e-mail">
+
+            <button type="submit">Unmatch</button>
+
+        </form>
         
 
 

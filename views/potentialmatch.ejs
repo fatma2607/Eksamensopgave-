@@ -9,22 +9,22 @@
 
     <label>
         <!--dislike er id'et vi ændrer-->
-        Name: <%= myusers[shownextprofile].name%>
+        Name: <%= mypotentialmatches[shownextprofile].name%>
     </label>
     <label>
-        Age: <%= myusers[shownextprofile].age%>
+        Age: <%= mypotentialmatches[shownextprofile].age%>
        
     <label>
-        Gender: <%= myusers[shownextprofile].gender%>
+        Gender: <%= mypotentialmatches[shownextprofile].gender%>
     </label>
     <label>
-        Interests: <%= myusers[shownextprofile].interests%>
+        Interests: <%= mypotentialmatches[shownextprofile].interests%>
     </label>
     <label>
-        City: <%= myusers[shownextprofile].city%>
+        City: <%= mypotentialmatches[shownextprofile].city%>
 
     </label>
-    <img src= <%=myusers[shownextprofile].profileimage%>  style="width:15%;">
+    <img src= <%= mypotentialmatches[shownextprofile].profileimage%>  style="width:15%;">
    
 
     <!--Når man trykker på like skal det kunne gå videre til næste "potential match"-->
@@ -35,7 +35,7 @@
 
     <label>
         id:
-        <input type="text" value= <%= myusers[shownextprofile].id%> name="id" placeholder="id">
+        <input type="text" value= <%= mypotentialmatches[shownextprofile].id%> name="id" placeholder="id">
     </label>
 
     <label>
@@ -50,7 +50,7 @@
 
     <label>
         id:
-        <input type="text" value= <%= myusers[shownextprofile].id%> name="id" placeholder="id">
+        <input type="text" value= <%= mypotentialmatches[shownextprofile].id%> name="id" placeholder="id">
     </label>
     
 
