@@ -11,42 +11,36 @@
         "interests": "Weight Lifting",
         "like": [
             {
-                "id": "18136201-ab68-49fb-9b94-ff1b93357781"
+                "id": "c6e144e1-a842-4158-87a1-eb68954f44ad"
             },
             {
-                "id": "3be2b67b-6a9d-45f0-8124-924989f3885c"
+                "id": "c6e144e1-a842-4158-87a1-eb68954f44ad"
             },
             {
-                "id": "e73cf539-7d95-4b23-9d09-45ac4df52e24"
+                "id": "c6e144e1-a842-4158-87a1-eb68954f44ad"
+            }
+        ],
+        "dislike": [
+            {
+                "id": "ebea2ab5-c45c-453d-973e-fdafaaa1614d"
             },
             {
                 "id": "ebea2ab5-c45c-453d-973e-fdafaaa1614d"
             },
             {
-                "id": "bd9ed075-4090-422e-bfc0-71cfa000d022"
-            },
-            {
-                "id": "bd9ed075-4090-422e-bfc0-71cfa000d022"
-            }
-        ],
-        "dislike": [
-            {
-                "id": 7
-            },
-            {
-                "id": ""
+                "id": "ebea2ab5-c45c-453d-973e-fdafaaa1614d"
             }
         ],
         "city": "California",
         "match": [
             {
-                "id": "3be2b67b-6a9d-45f0-8124-924989f3885c"
+                "id": "Gabby"
             },
             {
-                "id": "ebea2ab5-c45c-453d-973e-fdafaaa1614d"
+                "id": "Gabby"
             },
             {
-                "id": "e73cf539-7d95-4b23-9d09-45ac4df52e24"
+                "id": "c6e144e1-a842-4158-87a1-eb68954f44ad"
             }
         ],
         "deleted": 0
@@ -89,7 +83,9 @@
         "gender": "female",
         "interests": "Bowling",
         "like": [
-            {}
+            {
+                "id": "ebea2ab5-c45c-453d-973e-fdafaaa1614d"
+            }
         ],
         "dislike": [
             {
@@ -99,7 +95,15 @@
         "city": "Denver",
         "profileimage": "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
         "match": [
-            {}
+            {
+                "id": "Hanna"
+            },
+            {
+                "id": "Hanna"
+            },
+            {
+                "id": "ebea2ab5-c45c-453d-973e-fdafaaa1614d"
+            }
         ],
         "deleted": 0
     },
@@ -121,9 +125,11 @@
             }
         ],
         "dislike": [
-            {
-                "id": "bd9ed075-4090-422e-bfc0-71cfa000d022"
-            }
+            [
+                {
+                    "id": "bd9ed075-4090-422e-bfc0-71cfa000d022"
+                }
+            ]
         ],
         "city": "Boston",
         "profileimage": "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea",
@@ -139,7 +145,7 @@
         "name": "Alexandra",
         "age": "21",
         "email": "girl3@gmail.com",
-        "loggedin": 0,
+        "loggedin": 1,
         "password": "123",
         "gender": "female",
         "interests": [

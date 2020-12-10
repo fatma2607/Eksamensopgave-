@@ -25,6 +25,9 @@ app.locals.loggedin = 0;
 app.locals.loggedinuseremail = "Startemail@gmail.com";
 app.locals.loggedinuserindex = 0;
 app.locals.matches = app.locals.myusers[0].match;
+app.locals.loggedinuserid = 0;
+
+
 
 
 //Link til htmlllll,,,,,
@@ -89,6 +92,7 @@ app.get("/users", (req, res) => {
 //Login
 app.post("/login", (req, res) => {
 
+  
   let useremail = req.body.email;
   let userpassword = req.body.password;
     
@@ -381,8 +385,8 @@ console.log("Users email is " + req.body.email);
 
 app.post("/didlike", (req, res) => {
 
-
   let useremail = req.body.loggedinuseremail;
+  let loggedinuserid = req.body.loggedinuserid;
   //Her fanger vi id'den på usern som vi liker
   //console.log("det her logged in user email" + app.locals.loggedinuseremail);
   
@@ -403,8 +407,6 @@ if (user) {
     });
     
 
-
-
 //Our solution
 //Vi skal indsætte det i et JSON array, Str: string
 var jsonStr = users[founduserindex];
@@ -417,22 +419,89 @@ var obj = jsonStr;
 obj['like'].push({"id":likeuserid});
 
 
-    
-    
+
+
     //jsonStr = JSON.stringify(obj);
+
+  
+//Vores match function begynder her
+
+
+//Vi vil gerne have den likets profils index, så vi kan arbejde med brugeren, den returnere likeduserindex, dne er lavet lidt bagom
+let likeduserindex = users.findIndex(function (u) {
+  //find på username, da brugeren er fundet
+  return u.id == likeuserid;
+  });
+
+
+//Nu søger vi i den likets profils matches
+  
+
+//users[founduserindex].like = users[founduserindex].like;
+  
+
+//console.log("loggedinuserid is " + loggedinuserid);
+
+//console.log("likeduserindex is " + likeduserindex);
+
+  //Vi finder den logget inds id i den likedusers id
+  let foundusermatched = app.locals.myusers[likeduserindex].like.find(function (u) {
+    //find på username, da brugeren er fundet
+    
+    
+    
+    return u.id == loggedinuserid ;
+    });
+  //find hvilke personer den mar har liket også har liket
+  //hvis vores user id er i personens like skal der være et match
+  
+  //console.log("look into this users like which is " + JSON.stringify(app.locals.myusers[likeduserindex].like));
+
+  if (foundusermatched) {
+    //like user also likes loggedin user
+    
+
+    console.log("Hurray -match");
+
+
+//Push match on logged in user
+
+
+var jsonStr = users[founduserindex];
+
+
+//Opretter et objekt, som er vores JSON string der bliver lavet om.
+var obj = jsonStr;
+
+obj['match'].push({"id":likeuserid});
+
+
+//Push match on likeduser
+
+var jsonStr = users[likeduserindex];
+var obj = jsonStr;
+obj['match'].push({"id":loggedinuserid});
+    
+ 
 
   }
 
 
+//End of match function
+
+
+}
 
   //users[founduserindex].like = users[founduserindex].like;
+
+  
+
+  //Personen er blevet liket, vis næste profil
+  app.locals.shownextprofile = app.locals.shownextprofile + 1;
 
 
   const USERS_ENDPOINT = './users.json';
   fs.writeFileSync(USERS_ENDPOINT, JSON.stringify(users,null,4));
-
-  //Personen er blevet liket, vis næste profil
-  app.locals.shownextprofile = app.locals.shownextprofile + 1;
 
   //Når man liker skal man vende tilbage til potentialmath siden
   res.render(path.join(__dirname,"/views/potentialmatch.ejs"));
@@ -580,7 +649,10 @@ app.delete("/interets/:id", (req, res) => {
 //glem denne del
 //match delen
 
-let match = [
+
+
+
+/* let match = [
   {
     id: 1,
     match: [2, 4, 6, 8, 5],
@@ -626,7 +698,7 @@ app.put("/match/:id", (req, res) => {
   } else {
     res.send(404, "match not found");
   }
-});
+}); */
 //Funktion RemoveMatch()
 app.delete("/match/:id", (req, res) => {
   let matchid = req.params.id;
