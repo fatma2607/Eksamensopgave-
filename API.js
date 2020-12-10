@@ -24,6 +24,7 @@ app.locals.shownextprofile = 0;
 app.locals.loggedin = 0;
 app.locals.loggedinuseremail = "Startemail@gmail.com";
 app.locals.loggedinuserindex = 0;
+app.locals.matches = app.locals.myusers[0].match;
 
 
 //Link til htmlllll,,,,,
@@ -44,8 +45,8 @@ app.get("/views/showprofile", (req, res) => {
   res.render(path.join(__dirname,"/views/showprofile.ejs"));
 });
 
-app.get("/profile", (req, res) => {
-  res.render(path.join(__dirname,"/views/profile.ejs"));
+app.get("/opretprofile", (req, res) => {
+  res.render(path.join(__dirname,"/views/opretprofile.ejs"));
 });
 
 app.get("/views/login", (req, res) => {
@@ -66,6 +67,12 @@ app.get("/logout", (req, res) => {
 app.get("/views/potentialmatch", (req, res) => {
   res.render(path.join(__dirname,"/views/potentialmatch.ejs"));
 });
+
+app.get("/views/matches", (req, res) => {
+  res.render(path.join(__dirname,"/views/matches.ejs"));
+});
+
+
 
 
 //Få alle brugere: Function GetUsers()
@@ -407,7 +414,7 @@ var jsonStr = users[founduserindex];
 var obj = jsonStr;
 
 
-obj['like'].push([{"id":likeuserid}]);
+obj['like'].push({"id":likeuserid});
 
 
     
@@ -475,7 +482,7 @@ var jsonStr = users[founduserindex];
 var obj = jsonStr;
 
 
-obj['dislike'].push([{"id":dislikeuserid}]);
+obj['dislike'].push({"id":dislikeuserid});
 
 
     app.locals.shownextprofile = app.locals.shownextprofile + 1;

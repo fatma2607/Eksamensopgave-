@@ -8,9 +8,11 @@
 <body>
     
 
-    <a href="/">My profile-data</a>
+    <a href="/">Go back to homepage</a>
 
     <a href="/views/potentialmatch">Show potentialmatches</a>
+
+
 
 </br>
 
@@ -129,8 +131,26 @@
     <input type="email" name="email" value= <%= myusers[loggedinuserindex].email%> placeholder="e-mail">
         </form>
 
-        <H1> My matches </H1>
+        <h1>My matches</h1>
+
+
+        <label>
+           
+            </label>
         
+            <ul>
+                
+                <% matches.forEach(function(item) { %>
+                    
+                    
+                    <li><%= item.id%></li>
+        
+                <% });%>
+        
+            </ul> 
+        
+        
+
 
 </body>
 </html>
