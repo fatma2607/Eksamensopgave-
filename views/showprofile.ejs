@@ -110,7 +110,7 @@
     </form>
             <h1>Logout</h1>
     <form method="post" action="/logout">
-        <button type="submit">Logout</button>
+        <button type="submit" id="btnInsert"  >Logout</button>
 
     </label>
     E-mail: <%= myusers[loggedinuserindex].email%>
@@ -147,11 +147,12 @@
                 <!-- Vi vil have en knap til hver user som vi vil unmatche, knappen sender os til vores API funktion-->
                 <% matches.forEach(function(item) { %>
         
+                    <!--Den ene item er værdien, og den anden er det der bliver vist-->
                    
-                        <option name="unmatcheduseridselect" value= <%= item.id%> <%= item.id%></option>
+                        <option name="unmatcheduseridselect" value=<%= item.id%>Name: <%= item.name%> - Age: <%= item.age%> </option>
                         
                   
-                    <li><%= item.id%></li>
+                    <li>Name: <%= item.name%> - Age: <%= item.age%></li>
         
                 <% });%>
         
@@ -159,9 +160,6 @@
             </ul> 
 
         </select>
-
-
-
 
 
 
@@ -177,4 +175,25 @@
 
 
 </body>
+
+<script type="text/javascript">
+  
+    //Vi indsætter en key
+    const inpKey = "loggedinuseremail";
+    const btnInsert = document.getElementById("btnInsert");
+    
+    //Med kode kan vi gå ind og hijacke vores btnInsert, og sige hvad den skal sende
+    btnInsert.onclick = function(){
+    
+    
+        //alert("Value is " + inpValue.value);
+        localStorage.removeItem(inpKey);
+        location.reload();
+
+        
+    }
+    
+        </script>
+    
+
 </html>

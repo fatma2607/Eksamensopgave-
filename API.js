@@ -29,6 +29,34 @@ app.locals.loggedinuserid = 0;
 app.locals.mypotentialmatches = require('./users.json');
 app.locals.youhaveamatch = "No new matches";
 
+//Funktion som kan lave id om til navne 
+
+function useridtoprofile(userid) {
+  
+  const users = require("./users.json");
+
+  let fulluserprofile = users.find(function (u) {
+    //find ud af om email og password passer,og brugeren ikke er deleted u er det vi henter fra vores json fil
+  return u.id == userid;
+  });
+  
+  return fulluserprofile;
+}
+//Funktion som kan finde den fulde profil ved hjælp af e-mail
+
+function useremailtoprofile(useremail) {
+  
+  const users = require("./users.json");
+
+  let fulluserprofile = users.find(function (u) {
+    //find ud af om email og password passer,og brugeren ikke er deleted u er det vi henter fra vores json fil
+  return u.email == useremail;
+  });
+  
+  return fulluserprofile;
+}
+
+
 //Link til htmlllll,,,,,
 
 /* app.get("/", (req, res) => {t
@@ -75,13 +103,13 @@ app.get("/views/potentialmatch", (req, res) => {
 });
 
 
-
   res.render(path.join(__dirname,"/views/potentialmatch.ejs"));
 });
 
 app.get("/views/matches", (req, res) => {
   res.render(path.join(__dirname,"/views/matches.ejs"));
 });
+
 
 
 
@@ -101,9 +129,12 @@ app.get("/users", (req, res) => {
 app.post("/login", (req, res) => {
 
   
+
   let useremail = req.body.email;
   let userpassword = req.body.password;
     
+
+
   //Få vores brugere til vores localstorgae
     //Vi giver vores localstorage en værdi
   //window.localStorage.setItem('loggedinuserid', "hej det er tuma");
@@ -232,6 +263,12 @@ app.post("/user", (req, res) => {
         interests: Array.isArray(req.body.interests) ? req.body.interests : [req.body.interests],
         city:req.body.city,
         image:req.body.image,
+        loggedin:1,
+        like: [],
+        dislike: [],
+        match: [],
+        deleted: 0,
+        profileimage:req.body.profileimage,
     };
   
        users.push(newUser)
@@ -239,7 +276,7 @@ app.post("/user", (req, res) => {
     try {
         fs.writeFileSync(USERS_ENDPOINT, JSON.stringify(users,null,4));
         console.log("user is created", newUser);
-        res.send(200, 'User is created');
+        res.render(path.join(__dirname,"/views/login.ejs"));
     } catch (error) {
         console.error(err);
         res.send(500, err.message);
@@ -472,16 +509,26 @@ var jsonStr = users[founduserindex];
 //Opretter et objekt, som er vores JSON string der bliver lavet om.
 var obj = jsonStr;
 
-obj['match'].push({"id":likeuserid});
+let likeduserfullprofile = useridtoprofile(likeuserid);
+
+//Vi pusher alt det fra vores liked bruger ind i match som skal være en JSOn string
+
+obj['match'].push({"id":likeuserid, "name":likeduserfullprofile.name, "profileimage":likeduserfullprofile.profileimage, "age": likeduserfullprofile.age});
 
 
-//Push match on likeduser
+//Push match on likeduser, nu skal vi den logget inds profil ind i den man har liket som en fuld profil
 
 var jsonStr = users[likeduserindex];
 var obj = jsonStr;
-obj['match'].push({"id":loggedinuserid});
-    
- 
+
+
+let loggedinuserfullprofile = useridtoprofile(loggedinuserid);
+
+
+obj['match'].push({"id":loggedinuserid, "name":loggedinuserfullprofile.name, "profileimage":loggedinuserfullprofile.profileimage, "age": loggedinuserfullprofile.age});
+
+
+  
 
   }
 

@@ -5,15 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 </head>
-<body>
 
+<!--Gemme til localstorga-->
+
+
+                    <!--Vi vil gerne gemme userid'et på vores bruger -->
+<body>
+    <!--Backend er vores funktion, local storage er noget der kører på brugerens side-->
+    <!-- <button onclick="myFunction()">Save to local storage</button> -->
+
+  
 
     <H1> Log in here</H1>
     <form method="post" action="/login">
         
         
         E-mail:
-        <input type="email" name="email" placeholder="e-mail">
+        <input type="email" id="email" name="email" placeholder="e-mail">
         <label>
 
 
@@ -24,8 +32,49 @@
 
           
         
-        <button type="submit">Log Ind</button>
+        <button id="btnInsert"  type="submit">Log Ind</button>
     </form>
 
 </body>
+
+
+<script type="text/javascript">
+  
+//Vi indsætter en key
+const inpKey = "loggedinuseremail";
+const inpValue = document.getElementById("email");
+const btnInsert = document.getElementById("btnInsert");
+
+//Med kode kan vi gå ind og hijacke vores btnInsert, og sige hvad den skal sende
+btnInsert.onclick = function(){
+
+
+    //alert("Value is " + inpValue.value);
+    localStorage.setItem(inpKey,inpValue.value);
+    location.reload();
+
+
+
+    
+}
+
+
+
+    /* //Finder elementet som vi har kaldt email, dernede 
+    function myFunction() {
+    
+      let email = document.getElementsByName('email');
+  
+  
+     // let loggedinuserid = "Hannah";
+  
+      localStorage.setItem('loggedinuseremail', email.toString());
+    
+      return console.log("Saved to local storage" + email); */
+  
+  
+    
+    </script>
+
+
 </html>
