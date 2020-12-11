@@ -1,3 +1,9 @@
+commit d682869f62a8b75c04e6d4dfa840b851b67fb9e3
+Author: fatma2607 <70535099+fatma2607@users.noreply.github.com>
+Date:   Fri Dec 11 08:06:27 2020 +0100
+
+    MVC virkede ikke til sidst
+
 commit 8800a348c542eb25474165f12103ae6071ea4e9a
 Author: fatma2607 <70535099+fatma2607@users.noreply.github.com>
 Date:   Thu Dec 10 22:00:51 2020 +0100
