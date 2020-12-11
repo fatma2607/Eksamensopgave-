@@ -1,3 +1,39 @@
+commit 8800a348c542eb25474165f12103ae6071ea4e9a
+Author: fatma2607 <70535099+fatma2607@users.noreply.github.com>
+Date:   Thu Dec 10 22:00:51 2020 +0100
+
+    Dele op i MVC struktur
+
+commit ba1f7099c92015c424b5d50931e8a05478b27a87
+Author: fatma2607 <70535099+fatma2607@users.noreply.github.com>
+Date:   Thu Dec 10 21:05:15 2020 +0100
+
+    Local storage og to funktioner
+
+commit 67a1dace2ccf67c6c21dd673244a48f11a1b5003
+Author: fatma2607 <70535099+fatma2607@users.noreply.github.com>
+Date:   Thu Dec 10 14:45:35 2020 +0100
+
+    Notification virker med id
+
+commit 94fbd2e6e8cbeadfe87f8da756efaa9c70e69a14
+Author: fatma2607 <70535099+fatma2607@users.noreply.github.com>
+Date:   Thu Dec 10 13:36:51 2020 +0100
+
+    Match virker, vi kan fjerne en bruger
+
+commit 4e359ff538de70735329ce67dc7fc745f57bba14
+Author: fatma2607 <70535099+fatma2607@users.noreply.github.com>
+Date:   Thu Dec 10 04:33:15 2020 +0100
+
+    Fik match til at fungere
+
+commit a3926ebab979b76354e0848a62d78f77e3939d39
+Author: fatma2607 <70535099+fatma2607@users.noreply.github.com>
+Date:   Thu Dec 10 01:04:34 2020 +0100
+
+    Tilføjet liste af matches som min profil kan se
+
 commit 71882e0b845298326f7bd70029e53bb50c52d18b
 Author: fatma2607 <70535099+fatma2607@users.noreply.github.com>
 Date:   Wed Dec 9 21:35:25 2020 +0100

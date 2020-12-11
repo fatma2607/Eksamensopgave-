@@ -1,3 +1,5 @@
+
+
 const path = require("path"); 
 const express = require("express");
 //hvorfor er der to require express?
@@ -18,6 +20,9 @@ const { v4: uuidv4 } = require('uuid');
 //Til at bruge images
 app.use(express.static(__dirname + '/images'));
 
+
+
+
 //Variabler til hele vores applikation
 app.locals.myusers =  require('./users.json');
 app.locals.shownextprofile = 0;
@@ -31,17 +36,22 @@ app.locals.youhaveamatch = "No new matches";
 
 //Funktion som kan lave id om til navne 
 
+
+
+
+
 function useridtoprofile(userid) {
   
   const users = require("./users.json");
 
   let fulluserprofile = users.find(function (u) {
-    //find ud af om email og password passer,og brugeren ikke er deleted u er det vi henter fra vores json fil
   return u.id == userid;
   });
   
   return fulluserprofile;
-}
+};
+
+
 //Funktion som kan finde den fulde profil ved hjælp af e-mail
 
 function useremailtoprofile(useremail) {
@@ -57,21 +67,15 @@ function useremailtoprofile(useremail) {
 }
 
 
-//Link til htmlllll,,,,,
-
-/* app.get("/", (req, res) => {t
-  res.sendFile(path.join(__dirname,"index.html"));
-}); */
-
 //Mine controllere
 //Til vores ejs
 app.get("/", (req, res) => {
-  //render læser alt hvad vi har indeni vores fil
+
   res.render(path.join(__dirname,"/views/index.ejs"));
 });
 
 app.get("/views/showprofile", (req, res) => {
-  //render læser alt hvad vi har indeni vores fil
+
   res.render(path.join(__dirname,"/views/showprofile.ejs"));
 });
 
@@ -88,31 +92,18 @@ app.listen(PORT, () =>
 );
 
 app.get("/logout", (req, res) => {
-  //render læser alt hvad vi har indeni vores fil
-  //her kommer funktionen hvor vi logger brugeren ud og sender brugeren til startsiden
-
+  
   res.render(path.join(__dirname,"/views/index.ejs"));
 });
 
 app.get("/views/potentialmatch", (req, res) => {
 
 
-console.log("app.locals.loggedinuserid is " + app.locals.loggedinuserid);
-
- // let likeduserfullprofile = useridtoprofile(app.locals.loggedinuserid);
-
-
-//console.log("Full user profile is " + JSON.stringify(likeduserfullprofile));
-
- // console.log("Show  logged in user id " + app.locals.loggedinuserid)
-
 
 //Tag my users og giv mig kun dem som opfylder følgende kriterie
 app.locals.mypotentialmatches = app.locals.myusers.filter(function(item){
   return item.gender == "male";  
 });
-
-
 
 
   res.render(path.join(__dirname,"/views/potentialmatch.ejs"));
@@ -140,7 +131,6 @@ app.get("/users", (req, res) => {
 //Login
 app.post("/login", (req, res) => {
 
-  
 
   let useremail = req.body.email;
   let userpassword = req.body.password;
@@ -151,11 +141,6 @@ app.post("/login", (req, res) => {
 
 //console.log("...and app.locals.loggedinuserid is " + app.locals.loggedinuserid);
 
-  
-  
-  //Få vores brugere til vores localstorgae
-    //Vi giver vores localstorage en værdi
-  //window.localStorage.setItem('loggedinuserid', "hej det er tuma");
 
   //console.log("This is the email " + req.body.email);
 
@@ -448,6 +433,7 @@ app.post("/didlike", (req, res) => {
   const users = require("./users.json");
 
 //"find" finder brugeren med den samme email
+//Usersfind
 let user = users.find(function (u) {
   //find ud af om email og password passer,og brugeren ikke er deleted u er det vi henter fra vores json fil
 return u.email == useremail && u.deleted == 0
@@ -459,7 +445,7 @@ if (user) {
     //find på username, da brugeren er fundet
     return u.email == useremail ;
     });
-    
+
 
 //Our solution
 //Vi skal indsætte det i et JSON array, Str: string
@@ -472,11 +458,6 @@ var obj = jsonStr;
 
 obj['like'].push({"id":likeuserid});
 
-
-
-
-    //jsonStr = JSON.stringify(obj);
-
   
 //Vores match function begynder her
 
@@ -488,10 +469,6 @@ let likeduserindex = users.findIndex(function (u) {
   });
 
 
-//Nu søger vi i den likets profils matches
-  
-
-//users[founduserindex].like = users[founduserindex].like;
   
 
 //console.log("loggedinuserid is " + loggedinuserid);
@@ -499,17 +476,16 @@ let likeduserindex = users.findIndex(function (u) {
 //console.log("likeduserindex is " + likeduserindex);
 
   //Vi finder den logget inds id i den likedusers id
+
   let foundusermatched = app.locals.myusers[likeduserindex].like.find(function (u) {
     //find på username, da brugeren er fundet
     
-    
-    
+  
     return u.id == loggedinuserid ;
     });
   //find hvilke personer den mar har liket også har liket
   //hvis vores user id er i personens like skal der være et match
   
-  //console.log("look into this users like which is " + JSON.stringify(app.locals.myusers[likeduserindex].like));
 
   if (foundusermatched) {
     //like user also likes loggedin user
@@ -517,9 +493,7 @@ let likeduserindex = users.findIndex(function (u) {
 
     console.log("Hurray -match");
 
-
 //Push match on logged in user
-
 
 var jsonStr = users[founduserindex];
 
@@ -544,12 +518,7 @@ let loggedinuserfullprofile = useridtoprofile(loggedinuserid);
 
 
 obj['match'].push({"id":loggedinuserid, "name":loggedinuserfullprofile.name, "profileimage":loggedinuserfullprofile.profileimage, "age": loggedinuserfullprofile.age});
-
-
-  
-
   }
-
 
 //End of match function
 
@@ -559,7 +528,6 @@ obj['match'].push({"id":loggedinuserid, "name":loggedinuserfullprofile.name, "pr
   //users[founduserindex].like = users[founduserindex].like;
 
   
-
   //Personen er blevet liket, vis næste profil
   app.locals.shownextprofile = app.locals.shownextprofile + 1;
 
@@ -656,7 +624,6 @@ app.post("/dislike", (req, res) => {
 
   console.log("This is the logged in user email" + req.body.loggedinuseremail);
   //Her fanger vi id'den på usern som vi liker
-  //console.log("det her logged in user email" + app.locals.loggedinuseremail);
   
   let dislikeuserid = req.body.id;
 
@@ -682,9 +649,6 @@ if (user) {
 //Vi skal indsætte det i et JSON array, Str: string
 var jsonStr = users[founduserindex];
 
-//console.log("This is the jsonStr value " + JSON.stringify(users[founduserindex]));
-
-//Opretter et objekt, som er vores JSON string der bliver lavet om.
 var obj = jsonStr;
 
 
@@ -708,146 +672,5 @@ obj['dislike'].push({"id":dislikeuserid});
 });
 
 
-//glem dette pt
-//Funktion SletProfil()
-/* app.delete("/user/:id", (req, res) => {
-  let userid = req.params.id;
-  let user = users.find(function (u) {
-    return u.id == userid;
-  });
-  if (user) {
-    //Her slettes brugeren i databasen
-    res.send("Okay");
-  } else {
-    res.send(404, "user not found");
-  }
-}); */
-
-//TODO:
-//Funktion Likeshownextprofile()
-//Funktion DidLike()
-//Funktion Logout()
-//Funktion Match
-
-//glem dette pt
-//interests
-app.post("interests", (req, res) => {
-  let newInterests = {
-    interests: req.array.interest,
-  };
-  res.send(newInterests);
-});
-// i min profil skal der være alle de id'er som jeg godt kan lide, og sara skal have de ider hun godt kan lide hvis dey indeholde rmin id så bliver vi et match
-//interest
-app.get("/interests/:id", (req, res) => {
-  let interestsid = req.params.id;
-  let interests = users.find(function (i) {
-    return i.id == interests.id;
-  });
-
-  //error handling
-  if (interests) {
-    res.send(interests);
-  } else {
-    res.send(404, "user not found");
-  }
-});
-
-//interst
-app.put("/interets/:id", (req, res) => {
-  let interestsid = req.params.id;
-  let interests = users.find(function (i) {
-    return i.id == interests.id;
-  });
-
-  if (interests) {
-    let change = req.body;
-    //Alt fra brugerenn kommer ind i det tomme objekt, også kommer alt det fra change ind i objektet
-    let changedInterests = Object.assign({}, interests, change);
-    res.send(changedInterests);
-  } else {
-    res.send(404, "interests not found");
-  }
-});
-
-//interests
-app.delete("/interets/:id", (req, res) => {
-  let interestsid = req.params.id;
-  let interests = users.find(function (u) {
-    return i.id == interests.id;
-  });
-  if (interests) {
-    //Her slettes interets i databasen
-    res.send("Okay");
-  } else {
-    res.send(404, "no interets found");
-  }
-});
-//glem denne del
-//match delen
 
 
-
-
-/* let match = [
-  {
-    id: 1,
-    match: [2, 4, 6, 8, 5],
-  },
-  {
-    id: 5,
-    match: [1],
-  },
-];
-
-app.post("/match", (req, res) => {
-  let newmatch = {
-    match: req.array.match,
-  };
-  res.send(newmatch);
-});
-//Funktion Matches()
-app.get("/match/:id", (req, res) => {
-  let matchid = req.params.id;
-  let match = users.find(function (m) {
-    return m.id == match.id;
-  });
-
-  //error handling
-  if (match) {
-    res.send(match);
-  } else {
-    res.send(404, "No match found");
-  }
-});
-
-app.put("/match/:id", (req, res) => {
-  let matchid = req.params.id;
-  let match = users.find(function (m) {
-    return m.id == match.id;
-  });
-
-  if (match) {
-    let change = req.body;
-    //Alt fra brugerenn kommer ind i det tomme objekt, også kommer alt det fra change ind i objektet
-    let changedmatch = Object.assign({}, match, change);
-    res.send(changedmatch);
-  } else {
-    res.send(404, "match not found");
-  }
-}); */
-/* //Funktion RemoveMatch()
-app.delete("/match/:id", (req, res) => {
-  let matchid = req.params.id;
-  let match = users.find(function (m) {
-    return m.id == match.id;
-  });
-  if (match) {
-    //Her slettes interets i databasen
-    res.send("Match found!!");
-  } else {
-    res.send(404, "No match for you");
-  }
-}); */
-
-//backend
